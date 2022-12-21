@@ -33,3 +33,8 @@ jobs:
       - name: Dell script
         run: ./Dell/main.ps1
         shell: pwsh
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: DriverPackCatalog.cab
+          path: Dell/DriverPackCatalog.cab
