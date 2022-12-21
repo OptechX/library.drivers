@@ -36,5 +36,5 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: DriverPackCatalog.cab
-          path: Dell/DriverPackCatalog.cab
+          name: DriverPackCatalog.xml
+          path: Dell/DriverPackCatalog.xml
