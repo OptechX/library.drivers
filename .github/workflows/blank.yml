@@ -28,7 +28,7 @@ jobs:
       - name: install tools
         run: |
           sudo apt-get -y update
-          sudo apt-get install -y cabextract
+          sudo apt-get install -y cabextract tree
 
       - name: Dell script
         run: ./Dell/main.ps1

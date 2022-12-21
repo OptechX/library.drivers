@@ -8,3 +8,6 @@ Invoke-WebRequest -Uri $dell_cab_file -UseBasicParsing -DisableKeepAlive -OutFil
 
 # expand the cab file locally
 cabextract $cab_file
+
+# show me all the files
+tree
