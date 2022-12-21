@@ -7,7 +7,7 @@ $cab_file = "${c}/$(Split-Path -Path $dell_cab_file -Leaf)"
 Invoke-WebRequest -Uri $dell_cab_file -UseBasicParsing -DisableKeepAlive -OutFile $cab_file
 
 # expand the cab file locally
-cabextract $cab_file
+cabextract $cab_file --directory Dell
 
 # show me all the files
 tree
