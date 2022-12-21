@@ -38,3 +38,7 @@ jobs:
         with:
           name: DriverPackCatalog.xml
           path: Dell/DriverPackCatalog.xml
+
+      - name: test Dell data
+        run: ./Dell/test.ps1
+        shell: pwsh
