@@ -1,0 +1,1 @@
+$catalog = "https://download.lenovo.com/cdrt/td/catalogv2.xml"
