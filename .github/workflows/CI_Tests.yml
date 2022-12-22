@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: CI Tests
 
 # Controls when the workflow will run
 on:
@@ -36,9 +36,13 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: DriverPackCatalog.xml
+          name: Upload Dell DriverPackCatalog.xml
           path: Dell/DriverPackCatalog.xml
 
-      - name: test Dell data
+      - name: Test Dell data
         run: ./Dell/test.ps1
         shell: pwsh
+
+      - name: Lenovo script
+        run: | 
+          ./Lenovo/main.ps1
