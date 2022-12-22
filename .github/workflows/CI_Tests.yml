@@ -44,5 +44,5 @@ jobs:
         shell: pwsh
 
       - name: Lenovo script
-        run: | 
-          ./Lenovo/main.ps1
+        run: ./Lenovo/main.ps1
+        shell: pwsh
