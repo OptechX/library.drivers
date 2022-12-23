@@ -4,7 +4,7 @@ $lenovo_catalog_xml = "https://download.lenovo.com/cdrt/td/catalogv2.xml"
 $xml_file = "${c}/$(Split-Path -Path $lenovo_catalog_xml -Leaf)"
 $catalogXMLFile = "${c}${xml_file}"
 Write-Output "Path is: $catalogXMLFile"
-Test-Path -Path $catalogXMLFile
+Test-Path -Path ./Lenovo/catalogv2.xml
 "Is it true above?"
 
 # get the Lenovo xml file
