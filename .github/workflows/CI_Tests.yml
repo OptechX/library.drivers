@@ -52,5 +52,5 @@ jobs:
         shell: pwsh
 
       - name: get HP info
-        run: Get-Content ./HP/data/ffc10b30-1e90-4b9a-bf40-74a08d6d3d66.json
+        run: Get-ChildItem -Path . -Recurse -Filter "*74a08d6d3d66.json" | % {Get-Content $_.FullName }
         shell: pwsh
