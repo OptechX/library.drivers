@@ -22,5 +22,5 @@ tree
 Write-Output "Path is: $catalogXMLFile"
 Test-Path -Path ./Lenovo/catalogv2.xml
 "Is it true above?"
-Test-Path -Path $catalogXMLFile
+Test-Path -Path $xml_file
 "Is it true above?"
