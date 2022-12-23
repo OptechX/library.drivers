@@ -1,12 +1,11 @@
 # variables
 $c = $PSScriptRoot
 $lenovo_catalog_xml = "https://download.lenovo.com/cdrt/td/catalogv2.xml"
-$xml_file = "${c}$(Split-Path -Path $lenovo_catalog_xml -Leaf)"
-$catalogXMLFile = "${c}${xml_file}"
+$catalogXMLFile = "${c}$(Split-Path -Path $lenovo_catalog_xml -Leaf)"
 
 
 # get the Lenovo xml file
-Invoke-WebRequest -Uri $lenovo_catalog_xml -UseBasicParsing -DisableKeepAlive -OutFile $xml_file
+Invoke-WebRequest -Uri $lenovo_catalog_xml -UseBasicParsing -DisableKeepAlive -OutFile $catalogXMLFile
 
 
 # show me all the files
@@ -20,7 +19,6 @@ tree
 
 
 Write-Output "Path is: $catalogXMLFile"
-Test-Path -Path ./Lenovo/catalogv2.xml
+Test-Path -Path $catalogXMLFile
 "Is it true above?"
-Test-Path -Path $xml_file
-"Is it true above?"
+
