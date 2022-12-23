@@ -46,3 +46,7 @@ jobs:
       - name: Lenovo script
         run: ./Lenovo/main.ps1
         shell: pwsh
+
+      - name: HP script
+        run: ./HP/main.ps1
+        shell: pwsh
