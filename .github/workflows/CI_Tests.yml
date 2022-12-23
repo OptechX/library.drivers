@@ -50,3 +50,7 @@ jobs:
       - name: HP script
         run: ./HP/main.ps1
         shell: pwsh
+
+      - name: get HP info
+        run: Get-Content ./HP/data/ffc10b30-1e90-4b9a-bf40-74a08d6d3d66.json
+        shell: pwsh
