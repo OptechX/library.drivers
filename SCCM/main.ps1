@@ -23,6 +23,7 @@ foreach ($payload in $catalogXMLPayload.Catalogs.Catalog)
     $cabfile = $payload.DownloadUrl
 
     New-Item -ItemType Directory -Name $publisher
+    Invoke-WebRequest -Uri $cabfile -OutFile ./$publisher/ -UseBasicParsing -DisableKeepAlive
 }
 
 # $catalogXMLFile = "${c}/data/$(Split-Path -Path $lenovo_catalog_xml -Leaf)"
@@ -33,7 +34,7 @@ foreach ($payload in $catalogXMLPayload.Catalogs.Catalog)
 
 
 # # show me all the files
-# tree
+tree
 
 # # read the exported XML file to variable
 # #[xml]$catalogXMLDoc = Get-Content $catalogXMLFile
