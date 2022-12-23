@@ -1,10 +1,10 @@
 # variables
 $c = $PSScriptRoot
-$microsoft_catalog_url = "https://go.microsoft.com/fwlink/?linkid=874591"
-$download_page = ([System.Net.WebRequest]::CreateDefault($microsoft_catalog_url)).GetResponse()
+$microsoft_catalogs_url = "https://go.microsoft.com/fwlink/?linkid=874591"
+$download_page = ([System.Net.WebRequest]::CreateDefault($microsoft_catalogs_url)).GetResponse()
 $microsoft_cabfile = Split-Path -Path $download_page.ResponseUri.OriginalString -Leaf
 $cab_file = "${c}/data/${microsoft_cabfile}"
-$xml_file = "${c}/data/catalog.xml"
+$xml_file = "${c}/data/$($microsoft_cabfile.Replace('.cab','.xml'))"
 
 # get the Microsoft cab file
 Invoke-WebRequest -Uri $download_page.ResponseUri.OriginalString -OutFile $cab_file -UseBasicParsing -DisableKeepAlive
@@ -13,6 +13,7 @@ Invoke-WebRequest -Uri $download_page.ResponseUri.OriginalString -OutFile $cab_f
 # extract cab file
 # expand the cab file locally
 cabextract $cab_file --directory "SCCM/data"
+
 
 [xml]$catalogXMLPayload = Get-Content -Path $xml_file
 

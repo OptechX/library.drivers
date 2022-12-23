@@ -30,29 +30,6 @@ jobs:
           sudo apt-get -y update
           sudo apt-get install -y cabextract tree
 
-      - name: Dell script
-        run: ./Dell/main.ps1
+      - name: SCCM main tasks
         shell: pwsh
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Upload Dell DriverPackCatalog.xml
-          path: Dell/DriverPackCatalog.xml
-
-      - name: Test Dell data
-        run: ./Dell/test.ps1
-        shell: pwsh
-
-      - name: Lenovo script
-        run: ./Lenovo/main.ps1
-        shell: pwsh
-
-      - name: HP script
-        run: ./HP/main.ps1
-        shell: pwsh
-
-      - name: get HP info
-        run: |
-          Write-Output "File HP/data/V2/update_manifest.json"
-          Get-Content -Path ./HP/data/V2/update_manifest.json
-        shell: pwsh
+        run: ./SCCM/main.ps1
