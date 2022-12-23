@@ -52,5 +52,7 @@ jobs:
         shell: pwsh
 
       - name: get HP info
-        run: Get-ChildItem -Path . -Recurse -Filter "*74a08d6d3d66.json" | % {Get-Content $_.FullName }
+        run: |
+          Write-Output "File HP/data/V2/update_manifest.json"
+          Get-Content -Path ./HP/data/V2/update_manifest.json
         shell: pwsh
