@@ -1,7 +1,7 @@
 # variables
 $c = $PSScriptRoot
 $lenovo_catalog_xml = "https://download.lenovo.com/cdrt/td/catalogv2.xml"
-$xml_file = "${c}/$(Split-Path -Path $lenovo_catalog_xml -Leaf)"
+$xml_file = "${c}$(Split-Path -Path $lenovo_catalog_xml -Leaf)"
 $catalogXMLFile = "${c}${xml_file}"
 
 
