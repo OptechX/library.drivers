@@ -1,39 +1,28 @@
-# variables
-$c = $PSScriptRoot
-$microsoft_catalog_url = "https://go.microsoft.com/fwlink/?linkid=874591"
-$download_page = ([System.Net.WebRequest]::CreateDefault($microsoft_catalog_url)).GetResponse()
-$microsoft_cabfile = Split-Path -Path $download_page.ResponseUri.OriginalString -Leaf
-$catalog_cab_file = "${c}/data/${microsoft_cabfile}"
-
-# get the Microsoft cab file
-Invoke-WebRequest -Uri $download_page.ResponseUri.OriginalString -OutFile $microsoft_cabfile -UseBasicParsing -DisableKeepAlive
-
-
-# $catalogXMLFile = "${c}/data/$(Split-Path -Path $lenovo_catalog_xml -Leaf)"
-
-
-# # get the Lenovo xml file
-# Invoke-WebRequest -Uri $lenovo_catalog_xml -UseBasicParsing -DisableKeepAlive -OutFile $catalogXMLFile
-
-
-# # show me all the files
-# tree
-
-# # read the exported XML file to variable
-# #[xml]$catalogXMLDoc = Get-Content $catalogXMLFile
-
-# #$catalogXMLDoc
+Surface Book
+Surface Book 3
+Import-Module -Name Selenium
+$Driver = Start-SeFirefox 
+Enter-SeUrl https://www.microsoft.com/download/details.aspx?id=101315 -Driver $Driver
+$Element = Find-SeElement -Driver $Driver -Selection '/html/body/main/div/div/form/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div/div/div/a'
+Invoke-SeClick -Element $Element
+$Element = Find-SeElement -Driver $Driver -Selection '/html/body/main/div/div/form/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div[1]/div/div/div/div/div[2]/div[1]/div[1]/div/div[1]/input'
+Invoke-SeClick -Element $Element
+$Element = FInd-SeElement -Driver $Driver -Selection '//*[@id="5b70c241-07ba-40b9-c0c1-6aae74ab472b"]'
+Invoke-SeClick -Element $Element
+$a = 0
+do {
+    $b = (Get-ChildItem -Path C:\Users\appveyor\Downloads -Filter "*.part").Count
+    Start-Sleep -Seocnds 30
+} until (
+    $b -eq $a
+)
+<# something goes here #>
+$Driver.Close()
+$Driver.Quit()
 
 
+Surface Book 2
+https://www.microsoft.com/download/details.aspx?id=56261
 
-# Write-Output "Path is: $catalogXMLFile"
-# Test-Path -Path $catalogXMLFile
-# "Is it true above?"
-
-
-
-# $download_page = ([System.Net.WebRequest]::CreateDefault()).GetResponse()
-# Split-Path -Path $download_page.ResponseUri.OriginalString -Leaf
-
-
-# Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=874591" -UseBasicParsing -DisableKeepAlive
+Surface Book
+https://www.microsoft.com/download/details.aspx?id=49497
