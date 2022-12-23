@@ -22,8 +22,8 @@ foreach ($payload in $catalogXMLPayload.Catalogs.Catalog)
     $publisher = $payload.LocalizedProperties.Publisher
     $cabfile = $payload.DownloadUrl
 
-    New-Item -ItemType Directory -Name $publisher
-    Invoke-WebRequest -Uri $cabfile -OutFile ./$publisher/ -UseBasicParsing -DisableKeepAlive
+    New-Item -ItemType Directory -Name $publisher -Force -Confirm:$false
+    Invoke-WebRequest -Uri $cabfile -OutFile "./$publisher/" -UseBasicParsing -DisableKeepAlive
 }
 
 # $catalogXMLFile = "${c}/data/$(Split-Path -Path $lenovo_catalog_xml -Leaf)"
