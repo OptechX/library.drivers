@@ -1,0 +1,15 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Clear API Data
+on:
+  workflow_dispatch:
+
+jobs:
+  clear:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear API
+        shell: pwsh
+        run: |
+          Invoke-RestMethod -Uri https://engine.api.dev.optechx-data.com/v1/DriversCore -Method Get | ForEach-Object { $id = $_.id; Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore/${id}" -Method Delete }
+          
