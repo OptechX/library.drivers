@@ -27,5 +27,5 @@ foreach ($payload in $catalogXMLPayload.Catalogs.Catalog)
     cabextract "./${publisher}/$(Split-Path -Path $cabfile -Leaf)" --directory $publisher
 
     # copy local library data
-    Copy-Item -Path "SCCM/lib/${publisher}/*" -Destination  "./${publisher}/" -Recurse -Force -Confirm:$false
+    Copy-Item -Path "${c}/data/lib/${publisher}/*" -Destination  "./${publisher}/" -Recurse -Force -Confirm:$false
 }
