@@ -33,3 +33,7 @@ jobs:
       - name: SCCM main tasks
         shell: pwsh
         run: ./SCCM/main.ps1
+
+      - name: Dell Catalog
+        shell: pwsh
+        run: ./Dell/main-dell.ps1

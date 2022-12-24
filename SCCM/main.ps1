@@ -29,6 +29,3 @@ foreach ($payload in $catalogXMLPayload.Catalogs.Catalog)
     # copy local library data
     Copy-Item -Path "${c}/lib/${publisher}/*" -Destination  "./${publisher}/" -Recurse -Force -Confirm:$false
 }
-
-# sanity check
-tree
