@@ -24,7 +24,7 @@ foreach ($payload in $catalogXMLPayload.Catalogs.Catalog)
     New-Item -ItemType Directory -Name $publisher -Force -Confirm:$false
     Invoke-WebRequest -Uri $cabfile -DisableKeepAlive -UseBasicParsing `
         -OutFile "./${publisher}/$(Split-Path -Path $cabfile -Leaf)"
-    cabextract "./${publisher}/$(Split-Path -Path $cabfile -Leaf)" --directory $publisher
+    cabextract "./${publisher}/$(Split-Path -Path $cabfile -Leaf)" --directory $publisher | Out-Null
 
     # copy local library data
     Copy-Item -Path "${c}/data/lib/${publisher}/*" -Destination  "./${publisher}/" -Recurse -Force -Confirm:$false
