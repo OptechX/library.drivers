@@ -85,10 +85,14 @@ foreach ($dell_pc in $dell_pc_list)
     }
 
     $json = $payload | ConvertTo-Json
-
-    Invoke-RestMethod -Uri https://engine.api.dev.optechx-data.com/v1/DriversCore -Method Post -Headers @{accept="application/json"}
+    try
+    {
+        Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
+        Start-Sleep -Milliseconds 50
+    }
+    catch
+    {
+        Write-Error "Error: $($_.Exception)"
+        $Body
+    }
 }
-
-
-
-
