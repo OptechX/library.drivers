@@ -30,12 +30,12 @@ foreach ($dell_pc in $dell_pc_list)
 {
     switch($dell_pc)
     {
-        {$_ -match '^Internet\sof\sThings\s'}
-        {
-            $uid = "Dell::IoT::" + $dell_pc.Replace('Internet of Things ','').Replace(' ','_')
-            $make = "IoT"
-            $model = $dell_pc.Replace('Internet of Things ','')
-        }
+        # {$_ -match '^Internet\sof\sThings\s'}
+        # {
+        #     $uid = "Dell::IoT::" + $dell_pc.Replace('Internet of Things ','').Replace(' ','_')
+        #     $make = "IoT"
+        #     $model = $dell_pc.Replace('Internet of Things ','')
+        # }
         {$_ -match '^Latitude\s'}
         {
             $uid = "Dell::Latitude::" + $dell_pc.Replace('Latitude ','').Replace(' ','_')
@@ -57,12 +57,12 @@ foreach ($dell_pc in $dell_pc_list)
             $model = $dell_pc.Replace('Precision ','')
         }
 
-        {$_ -match '^Tablet\s'}
-        {
-            $uid = "Dell::Tablet::" + $dell_pc.Replace('Tablet ','').Replace(' ','_')
-            $make = "Tablet"
-            $model = $dell_pc.Replace('Tablet ','')
-        }
+        # {$_ -match '^Tablet\s'}
+        # {
+        #     $uid = "Dell::Tablet::" + $dell_pc.Replace('Tablet ','').Replace(' ','_')
+        #     $make = "Tablet"
+        #     $model = $dell_pc.Replace('Tablet ','')
+        # }
 
         {$_ -match '^XPS Notebook\s'}
         {
