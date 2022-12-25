@@ -10,5 +10,5 @@ jobs:
     steps:
       - name: Clear API
         shell: pwsh
-        run: ./admin/clear-api.ps1
+        run: ./tasks/clear-api.ps1
 
