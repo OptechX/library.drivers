@@ -14,7 +14,7 @@ $XmlDocument.SystemsManagementCatalog.SoftwareDistributionPackage
 # create blank array
 $pclist = @()
 
-$json
+$json_list
 
 # # iterate through objects and add to the array
 # foreach ($json in $json_list)
