@@ -11,6 +11,5 @@ jobs:
       - name: Install pre-reqs
         run: sudo apt-get -y update; sudo apt-get -y install tree
       - name: Clear API
-        shell: powershell
         run: tree
 
