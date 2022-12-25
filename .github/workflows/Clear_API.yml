@@ -8,8 +8,10 @@ jobs:
   clear:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Install pre-reqs
         run: sudo apt-get -y update; sudo apt-get -y install tree
       - name: Clear API
-        run: tree
+        run: ./tasks/clear-api.ps1
+        shell: pwsh
 
