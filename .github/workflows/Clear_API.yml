@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clear API
-        shell: pwsh
-        run: Get-ChildItem -Path . -Recurse -Filter "clear-api.ps1" | iex $_.FullName
+        shell: powershell
+        run: tree
 
