@@ -8,6 +8,8 @@ jobs:
   clear:
     runs-on: ubuntu-latest
     steps:
+      - name: Install pre-reqs
+        run: apt-get -y update; apt-get -y install tree
       - name: Clear API
         shell: powershell
         run: tree
