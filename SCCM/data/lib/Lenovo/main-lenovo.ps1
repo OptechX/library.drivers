@@ -14,13 +14,14 @@ $XmlDocument.SystemsManagementCatalog.SoftwareDistributionPackage
 # create blank array
 $pclist = @()
 
-$json_list
 
-# # iterate through objects and add to the array
-# foreach ($json in $json_list)
-# {
-#     $pclist += Get-Content -Path $json | ConvertFrom-Json | Select-Object -ExpandProperty DisplayName
-# }
+# iterate through objects and add to the array
+foreach ($json in $json_list)
+{
+    $pclist += Get-Content -Path $json | ConvertFrom-Json | Select-Object -ExpandProperty DisplayName
+}
+
+$pclist
 
 # # resort list
 # $sorted_pclist = $pclist | Sort-Object
