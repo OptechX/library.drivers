@@ -10,6 +10,5 @@ jobs:
     steps:
       - name: Clear API
         shell: pwsh
-        run: |
-          Invoke-RestMethod -Uri https://engine.api.dev.optechx-data.com/v1/DriversCore -Method Get | ForEach-Object { $id = $_.id; Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore/${id}" -Method Delete }
-          
+        run: admin/clear-api.ps1
+
