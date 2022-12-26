@@ -71,7 +71,6 @@ foreach ($pc in $pc_list)
         }
         200 {
             # record exists, no action required
-            Write-Output "Record exists"
         }
         Default {
             Write-Output "Other reason for failure"
