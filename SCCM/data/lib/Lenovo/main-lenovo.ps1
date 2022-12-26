@@ -1,10 +1,10 @@
 # variables
 $c = $PSScriptRoot
-$pc_catalog = "${c}/*.xml"
+# $pc_catalog = "${c}/*.xml"
 
 # read data to memory
-[xml]$XmlDocument = Get-Content -Path $pc_catalog
-$XmlDocument.SystemsManagementCatalog.SoftwareDistributionPackage
+# [xml]$XmlDocument = Get-Content -Path $pc_catalog
+# $XmlDocument.SystemsManagementCatalog.SoftwareDistributionPackage
 
 # load each pc object json file
 [System.String[]]$json_list = Get-ChildItem -Path $PSScriptRoot/V3 -Filter *.json | `
@@ -28,7 +28,7 @@ $sorted_pclist = $pclist | Sort-Object
 $lenovo_pc_list = $sorted_pclist | Where-Object -FilterScript {$_ -notin $ignore_list}
 
 # show list
-foreach ($pc in $pc_list)
+foreach ($pc in $lenovo_pc_list)
 {
     switch($pc)
     {
