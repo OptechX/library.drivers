@@ -1,0 +1,81 @@
+name: CI All
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: install tools
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -y cabextract tree
+
+      - name: SCCM main tasks
+        shell: pwsh
+        run: ./SCCM/main.ps1
+
+  dell:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: install tools
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -y cabextract tree
+
+      - name: SCCM main tasks
+        shell: pwsh
+        run: ./SCCM/main.ps1
+
+      - name: Dell Drivers
+        shell: pwsh
+        run: ./Dell/main.ps1
+
+  hp:
+    needs: dell
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: install tools
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -y cabextract tree
+
+      - name: SCCM main tasks
+        shell: pwsh
+        run: ./SCCM/main.ps1
+
+      - name: HP Drivers
+        shell: pwsh
+        run: ./HP/main.ps1
+
+  lenovo:
+    needs: hp
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: install tools
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -y cabextract tree
+
+      - name: SCCM main tasks
+        shell: pwsh
+        run: ./SCCM/main.ps1
+
+      - name: Lenovo Drivers
+        shell: pwsh
+        run: ./Lenovo/main.ps1

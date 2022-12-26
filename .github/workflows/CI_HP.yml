@@ -1,0 +1,27 @@
+name: CI HP
+
+on:
+  push:
+    branches:
+      - "hp"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: install tools
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -y cabextract tree
+
+      - name: SCCM main tasks
+        shell: pwsh
+        run: ./SCCM/main.ps1
+
+      - name: HP Catalog
+        shell: pwsh
+        run: ./HP/main.ps1
