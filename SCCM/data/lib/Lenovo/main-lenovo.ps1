@@ -88,6 +88,9 @@ foreach ($pc in $lenovo_pc_list)
     }
 
     $json = $payload | ConvertTo-Json
+
+    $json
+    
     try
     {
         Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
