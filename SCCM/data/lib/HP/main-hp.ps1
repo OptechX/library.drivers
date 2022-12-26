@@ -22,54 +22,56 @@ $sorted_pclist = $pclist | Sort-Object
 [System.String[]]$ignore_list = Get-Content -Path "${c}/ignore_list.txt"
 $pc_list = $sorted_pclist | Where-Object -FilterScript {$_ -notin $ignore_list}
 
-# show list
-foreach ($pc in $pc_list)
-{
-    $make = $pc.Split(' ')[1]
-    $model = $pc.Replace("HP ${make} ","")
+$pc_list.Count
 
-    $uid = "HP::${make}::${model}".Replace(' ','_')
+# # show list
+# foreach ($pc in $pc_list)
+# {
+#     $make = $pc.Split(' ')[1]
+#     $model = $pc.Replace("HP ${make} ","")
+
+#     $uid = "HP::${make}::${model}".Replace(' ','_')
     
-    $payload = @{
-        id = 0
-        uuid = [System.Guid]::NewGuid().ToString()
-        uid = $uid
-        originalEquipmentManufacturer = "HP"
-        make = $make
-        model = $model
-        productionYear = 2022
-        cpuArch = @("x64")
-        windowsOS = @("Windows 10","Windows 11")
-    }
+#     $payload = @{
+#         id = 0
+#         uuid = [System.Guid]::NewGuid().ToString()
+#         uid = $uid
+#         originalEquipmentManufacturer = "HP"
+#         make = $make
+#         model = $model
+#         productionYear = 2022
+#         cpuArch = @("x64")
+#         windowsOS = @("Windows 10","Windows 11")
+#     }
 
-    $json = $payload | ConvertTo-Json
+#     $json = $payload | ConvertTo-Json
 
-    # create dummy request for exisiting UID first
-    $req = Invoke-WebRequest -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore/uid/${uid}" -Method GET -SkipHttpErrorCheck
+#     # create dummy request for exisiting UID first
+#     $req = Invoke-WebRequest -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore/uid/${uid}" -Method GET -SkipHttpErrorCheck
 
-    switch ($req.StatusCode)
-    {
-        404 {
-            try
-            {
-                Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
-            }
-            catch
-            {
-                Write-Error "Error: $($_.Exception)"
-                $Body
-                $json
-            }
-        }
-        200 {
-            # record exists, no action required
-            Write-Output "Record exists"
-        }
-        Default {
-            "other reason for failure"
-            $json
-        }
-    }        
+#     switch ($req.StatusCode)
+#     {
+#         404 {
+#             try
+#             {
+#                 Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
+#             }
+#             catch
+#             {
+#                 Write-Error "Error: $($_.Exception)"
+#                 $Body
+#                 $json
+#             }
+#         }
+#         200 {
+#             # record exists, no action required
+#             Write-Output "Record exists"
+#         }
+#         Default {
+#             "other reason for failure"
+#             $json
+#         }
+#     }        
     
-    Start-Sleep -Seconds 2
-}
+#     Start-Sleep -Seconds 2
+# }
