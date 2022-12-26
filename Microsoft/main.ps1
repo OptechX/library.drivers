@@ -1,5 +1,5 @@
-Surface Book
-Surface Book 3
+# Surface Book
+# Surface Book 3
 Import-Module -Name Selenium
 $Driver = Start-SeFirefox 
 Enter-SeUrl https://www.microsoft.com/download/details.aspx?id=101315 -Driver $Driver
@@ -21,8 +21,8 @@ $Driver.Close()
 $Driver.Quit()
 
 
-Surface Book 2
-https://www.microsoft.com/download/details.aspx?id=56261
+# Surface Book 2
+# https://www.microsoft.com/download/details.aspx?id=56261
 
-Surface Book
-https://www.microsoft.com/download/details.aspx?id=49497
+# Surface Book
+# https://www.microsoft.com/download/details.aspx?id=49497
