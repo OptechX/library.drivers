@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Get some info
           no_output_timeout: "10m"
-          command: pwsh -Command "pwd; whoami"
+          command: pwsh -File ./Microsoft/main.ps1
           
 workflows:
   # say-hello-workflow:

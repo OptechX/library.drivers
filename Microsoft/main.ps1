@@ -11,7 +11,7 @@ $Element = FInd-SeElement -Driver $Driver -Selection '//*[@id="5b70c241-07ba-40b
 Invoke-SeClick -Element $Element
 $a = 0
 do {
-    $b = (Get-ChildItem -Path C:\Users\appveyor\Downloads -Filter "*.part").Count
+    $b = (Get-ChildItem -Path ~\Downloads -Filter "*.part").Count
     Start-Sleep -Seocnds 30
 } until (
     $b -eq $a
