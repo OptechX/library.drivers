@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Install Selenium
           no_output_timeout: "10m"
-          command: pwsh -Command "Install-Module Selenium"
+          command: pwsh -Command "Install-Module Selenium -Repository PSGallery -Force"
           
 workflows:
   # say-hello-workflow:
