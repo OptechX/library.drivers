@@ -28,9 +28,9 @@ foreach ($pc in $pc_list)
     $make = $pc.Split(' ')[0]
     $model = $pc.Replace("${make} ","")
 
-    $pattern = '[^a-zA-Z_]'
-    $uid = "Lenovo::${make}::${model}".Replace(' ','_')
-    $uid = $uid.Replace($pattern,'')
+    $pattern = '[^a-zA-Z_0-9:]'
+    $uid = "Lenovo::${make}::${model}" -replace ' ','_'
+    $uid = $uid -replace $pattern, ''
 
     $payload = @{
         id = 0

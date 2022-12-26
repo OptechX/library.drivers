@@ -36,7 +36,9 @@ foreach ($pc in $pc_list)
     $make = $pc.Split(' ')[0]
     $model = $pc.Replace("${make} ","")
 
-    $uid = "Dell::${make}::${model}".Replace(' ','_')
+    $pattern = '[^a-zA-Z_0-9:]'
+    $uid = "Dell::${make}::${model}" -replace ' ','_'
+    $uid = $uid -replace $pattern, ''
 
     $payload = @{
         id = 0
@@ -51,7 +53,6 @@ foreach ($pc in $pc_list)
     }
 
     $json = $payload | ConvertTo-Json
-    $json
 
     # create dummy request for exisiting UID first
     $req = Invoke-WebRequest -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore/uid/${uid}" -Method GET -SkipHttpErrorCheck
