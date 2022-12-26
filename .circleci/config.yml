@@ -1,7 +1,10 @@
 version: 2.1
+
 orbs:
   win: circleci/windows@5.0
+
 jobs:
+
   say-hello:
     docker:
       - image: cimg/base:stable
@@ -10,15 +13,20 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-  build:
+
+  microsoft:
     executor: win/server-2022
     steps:
-      - run: Write-Host 'Hello, Windows'
+      - checkout
+      - run:
+          name: Install Selenium
+          no_output_timeout: "10m"
+          command: pwsh -Command "Install-PSModule Selenium"
           
 workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
+  # say-hello-workflow:
+  #   jobs:
+  #     - say-hello
   my-workflow:
     jobs:
-      - build
+      - microsoft
