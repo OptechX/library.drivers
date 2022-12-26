@@ -108,7 +108,6 @@ foreach ($pc in $lenovo_pc_list)
                 try
                 {
                     Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
-                    Start-Sleep -Seconds 1
                 }
                 catch
                 {
@@ -132,4 +131,6 @@ foreach ($pc in $lenovo_pc_list)
         $pc
         "this is else"
     }
+
+    Start-Sleep -Seconds 1
 }
