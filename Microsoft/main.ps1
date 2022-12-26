@@ -1,7 +1,8 @@
 # Surface Book
 # Surface Book 3
 Import-Module -Name Selenium
-$Driver = Start-SeFirefox 
+$Driver = Start-SeChrome
+Start-Sleep -Seconds 46
 Enter-SeUrl https://www.microsoft.com/download/details.aspx?id=101315 -Driver $Driver
 $Element = Find-SeElement -Driver $Driver -Selection '/html/body/main/div/div/form/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div/div/div/a'
 Invoke-SeClick -Element $Element
