@@ -108,7 +108,7 @@ foreach ($pc in $lenovo_pc_list)
                 try
                 {
                     Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
-                    Start-Sleep -Milliseconds 500
+                    Start-Sleep -Seconds 1
                 }
                 catch
                 {
@@ -119,6 +119,7 @@ foreach ($pc in $lenovo_pc_list)
             }
             200 {
                 # record exists, no action required
+                Write-Output "Record exists"
             }
             Default {
                 "other reason for failure"
@@ -129,5 +130,6 @@ foreach ($pc in $lenovo_pc_list)
     else
     {
         $pc
+        "this is else"
     }
 }
