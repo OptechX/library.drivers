@@ -24,7 +24,7 @@ $pc_list = $sorted_pclist | Where-Object -FilterScript {$_ -notin $ignore_list}
 
 $pc_list.Count
 
-$pc_list[$pc_list.Count]
+$pc_list[$pc_list.Count - 1]
 
 # # show list
 # foreach ($pc in $pc_list)
