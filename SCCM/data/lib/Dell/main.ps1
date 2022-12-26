@@ -59,12 +59,10 @@ foreach ($pc in $pc_list)
     switch ($req.StatusCode)
     {
         404 {
-            try
-            {
+            try {
                 Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
             }
-            catch
-            {
+            catch {
                 Write-Error "Error: $($_.Exception)"
                 $json
             }

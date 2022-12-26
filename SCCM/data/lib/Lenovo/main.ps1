@@ -22,7 +22,6 @@ $sorted_pclist = $pclist | Sort-Object
 [System.String[]]$ignore_list = Get-Content -Path "${c}/ignore_list.txt"
 $pc_list = $sorted_pclist | Where-Object -FilterScript {$_ -notin $ignore_list}
 
-
 # iterate through each item, update the API
 foreach ($pc in $pc_list)
 {
@@ -46,17 +45,17 @@ foreach ($pc in $pc_list)
     $json = $payload | ConvertTo-Json
 
     # create dummy request for exisiting UID first
+    $uid
     $req = Invoke-WebRequest -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore/uid/${uid}" -Method GET -SkipHttpErrorCheck
 
     switch ($req.StatusCode)
     {
         404 {
-            try
-            {
+            try {
+                Write-Out "new Record"
                 Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
             }
-            catch
-            {
+            catch {
                 Write-Error "Error: $($_.Exception)"
                 $json
             }
