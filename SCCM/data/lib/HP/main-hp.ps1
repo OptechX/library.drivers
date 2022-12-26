@@ -71,5 +71,5 @@ foreach ($pc in $pc_list)
         }
     }        
     
-    Start-Sleep -Seconds 1
+    Start-Sleep -Seconds 2
 }
