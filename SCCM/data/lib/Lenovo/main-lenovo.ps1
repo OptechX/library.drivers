@@ -36,7 +36,7 @@ foreach ($pc in $lenovo_pc_list)
     {
         {$_ -match '^ThinkCentre\sThinkCentre\s'}
         {
-            $uid = "Lenovo::ThinkCentre::" + $pc.Replace('ThinkCentre ThinkCentre ','').Replace(' ','_')
+            $uid = "Lenovo::ThinkCentre::" + $($pc.Replace('ThinkCentre ThinkCentre ','')).Replace(' ','_')
             $make = "ThinkCentre"
             $model = $pc.Replace('ThinkCentre ThinkCentre ','')
             $valid = $true
@@ -44,7 +44,7 @@ foreach ($pc in $lenovo_pc_list)
 
         {$_ -match '^ThinkCentre\s'}
         {
-            $uid = "Lenovo::ThinkCentre::" + $pc.Replace('ThinkCentre ','').Replace(' ','_')
+            $uid = "Lenovo::ThinkCentre::" + $($pc.Replace('ThinkCentre ','')).Replace(' ','_')
             $make = "ThinkCentre"
             $model = $pc.Replace('ThinkCentre ','')
             $valid = $true
@@ -52,7 +52,7 @@ foreach ($pc in $lenovo_pc_list)
 
         {$_ -match '^ThinkPad\sX1\s'}
         {
-            $uid = "Lenovo::ThinkPadX1::" + $pc.Replace('ThinkPad X1 ','').Replace(' ','_')
+            $uid = "Lenovo::ThinkPadX1::" + $($pc.Replace('ThinkPad X1 ','')).Replace(' ','_')
             $make = "ThinkPad X1"
             $model = $pc.Replace('ThinkPad X1 ','')
             $valid = $true
@@ -60,7 +60,7 @@ foreach ($pc in $lenovo_pc_list)
 
         {$_ -match '^ThinkPad\sYoga\s'}
         {
-            $uid = "Lenovo::ThinkPadYoga::" + $pc.Replace('ThinkPad Yoga ','').Replace(' ','_')
+            $uid = "Lenovo::ThinkPadYoga::" + $($pc.Replace('ThinkPad Yoga ','')).Replace(' ','_')
             $make = "ThinkPad Yoga"
             $model = $pc.Replace('ThinkPad Yoga ','')
             $valid = $true
@@ -68,7 +68,7 @@ foreach ($pc in $lenovo_pc_list)
 
         {$_ -match '^ThinkPad\s'}
         {
-            $uid = "Lenovo::ThinkPad::" + $pc.Replace('ThinkPad ','').Replace(' ','_')
+            $uid = "Lenovo::ThinkPad::" + $($pc.Replace('ThinkPad ','')).Replace(' ','_')
             $make = "ThinkPad"
             $model = $pc.Replace('ThinkPad ','')
             $valid = $true
@@ -76,7 +76,7 @@ foreach ($pc in $lenovo_pc_list)
 
         {$_ -match '^ThinkStation\s'}
         {
-            $uid = "Lenovo::ThinkStation::" + $pc.Replace('ThinkStation ','').Replace(' ','_')
+            $uid = "Lenovo::ThinkStation::" + $($pc.Replace('ThinkStation ','')).Replace(' ','_')
             $make = "ThinkStation"
             $model = $pc.Replace('ThinkStation ','')
             $valid = $true
@@ -99,18 +99,32 @@ foreach ($pc in $lenovo_pc_list)
 
         $json = $payload | ConvertTo-Json
 
-        $json
-        
-        try
+        # create dummy request for exisiting UID first
+        $req = Invoke-WebRequest -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore/uid/${uid}" -Method GET -SkipHttpErrorCheck
+
+        switch ($req.StatusCode)
         {
-            Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
-            Start-Sleep -Milliseconds 50
-        }
-        catch
-        {
-            Write-Error "Error: $($_.Exception)"
-            $Body
-        }
+            404 {
+                try
+                {
+                    Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
+                    Start-Sleep -Milliseconds 500
+                }
+                catch
+                {
+                    Write-Error "Error: $($_.Exception)"
+                    $Body
+                    $json
+                }
+            }
+            200 {
+                # record exists, no action required
+            }
+            Default {
+                "other reason for failure"
+                $json
+            }
+        }        
     }
     else
     {
