@@ -24,4 +24,4 @@ jobs:
 
       - name: HP Catalog
         shell: pwsh
-        run: ./Lenovo/main-hp.ps1
+        run: ./HP/main-hp.ps1
