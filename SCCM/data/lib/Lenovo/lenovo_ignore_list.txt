@@ -1,3 +1,0 @@
-Drivers
-BIOS
-Software and Utilities

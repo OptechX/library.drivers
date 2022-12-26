@@ -26,16 +26,16 @@ $pc_list = $sorted_pclist | Where-Object -FilterScript {$_ -notin $ignore_list}
 # iterate through each item, update the API
 foreach ($pc in $pc_list)
 {
-    $make = $pc.Split(' ')[1]
-    $model = $pc.Replace("HP ${make} ","")
+    $make = $pc.Split(' ')[0]
+    $model = $pc.Replace("${make} ","")
 
-    $uid = "HP::${make}::${model}".Replace(' ','_')
-    
+    $uid = "Lenovo::${make}::${model}".Replace(' ','_')
+
     $payload = @{
         id = 0
         uuid = [System.Guid]::NewGuid().ToString()
         uid = $uid
-        originalEquipmentManufacturer = "HP"
+        originalEquipmentManufacturer = "Lenovo"
         make = $make
         model = $model
         productionYear = $((Get-Date).ToString('yyyy'))
@@ -69,7 +69,7 @@ foreach ($pc in $pc_list)
             Write-Output "Other reason for failure"
             $json
         }
-    }        
+    }
     
     Start-Sleep -Seconds 1
 }
