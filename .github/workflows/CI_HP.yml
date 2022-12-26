@@ -24,4 +24,4 @@ jobs:
 
       - name: HP Catalog
         shell: pwsh
-        run: ./HP/main-hp.ps1
+        run: ./HP/main.ps1
