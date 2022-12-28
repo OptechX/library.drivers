@@ -1,5 +1,5 @@
 # variables
-$downloads_dir = "${HOME}/Downloads"
+$downloads_dir = "${HOME}\Downloads"
 
 # setup selenium
 $url = 'https://www.nuget.org/api/v2/package/Selenium.WebDriver/3.141.0'
@@ -14,8 +14,8 @@ mkdir -p C:\Selenium
 
 # download firefox driver
 $url = 'https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-win32.zip'
-Invoke-WebRequest -Uri $url -OutFile "${downloads_dir}\${c}\geckodriver-v0.32.0-win32.zip"
-7z x "${downloads_dir}\${c}\geckodriver-v0.32.0-win32.zip" -oC:\Selenium
+Invoke-WebRequest -Uri $url -OutFile "${downloads_dir}\geckodriver-v0.32.0-win32.zip"
+7z x "${downloads_dir}\geckodriver-v0.32.0-win32.zip" -oC:\Selenium
 Move-Item -Path C:\Selenium\geckodriver.exe -Destination C:\Selenium\lib\net45\geckodriver.exe
 
 # initialise Selenium driver
