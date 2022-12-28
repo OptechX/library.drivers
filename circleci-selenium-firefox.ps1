@@ -9,10 +9,8 @@ $c = Split-Path -Path $d.ResponseUri.OriginalString -Leaf
 
 Invoke-WebRequest -Uri $g -OutFile "${downloads_dir}\${c}" -UseBasicParsing -DisableKeepAlive
 
-dir $downloads_dir
-
-# mkdir -p C:\Selenium
-# 7z x "${downloads_dir}\${c}" -oC:\Selenium
+New-Item -ItemType Directory -Path C:\ -Name Selenium -Force -Confirm:$false
+7z x "${downloads_dir}\${c}" -oC:\Selenium
 
 # # download firefox driver
 # $url = 'https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-win32.zip'
