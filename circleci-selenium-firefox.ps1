@@ -1,5 +1,6 @@
 # variables
 $downloads_dir = "${HOME}\Downloads"
+$firefox_msi = 'https://download-installer.cdn.mozilla.net/pub/firefox/releases/108.0.1/win64/en-US/Firefox%20Setup%20108.0.1.msi'
 
 # setup selenium
 $url = 'https://www.nuget.org/api/v2/package/Selenium.WebDriver/3.141.0'
@@ -11,6 +12,10 @@ Invoke-WebRequest -Uri $g -OutFile "${downloads_dir}\${c}" -UseBasicParsing -Dis
 
 New-Item -ItemType Directory -Path C:\ -Name Selenium -Force -Confirm:$false
 7z x "${downloads_dir}\${c}" -oC:\Selenium
+
+# install/setup firefox
+Invoke-WebRequest -Uri $firefox_msi -OutFile "${downloads_dir}\firefox_setup.msi" -UseBasicParsing -DisableKeepAlive
+Start-Process -FilePath msiexec -ArgumentList "/i","${downloads_dir}\firefox_setup.msi","/qn" -Wait
 
 # download firefox driver
 $url = 'https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-win32.zip'
