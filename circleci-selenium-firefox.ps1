@@ -25,24 +25,27 @@ if ($env:Path -notcontains ";$PathToFolder" ) {
     $env:Path += ";$PathToFolder"
 }
 
-# function into memory
-Function Start-FirefoxBrowser{
-    Param(
-        $SiteURL
-    )
-    # Create Firefox options object
-    $firefoxoptions = new-object OpenQA.Selenium.Firefox.FirefoxOptions
-    # $firefoxoptions.Profile = "$workingPath\FireFoxProfile"
-    $firefoxoptions.BrowserExecutableLocation = "C:\Program Files\Mozilla Firefox\firefox.exe"
+# does firefox exist?
+Test-Path -Path "C:\Program Files\Mozilla Firefox\firefox.exe"
+
+# # function into memory
+# Function Start-FirefoxBrowser{
+#     Param(
+#         $SiteURL
+#     )
+#     # Create Firefox options object
+#     $firefoxoptions = new-object OpenQA.Selenium.Firefox.FirefoxOptions
+#     # $firefoxoptions.Profile = "$workingPath\FireFoxProfile"
+#     $firefoxoptions.BrowserExecutableLocation = "C:\Program Files\Mozilla Firefox\firefox.exe"
  
-    # Start Firefox and navigate to URL
-    $firefoxdriver = New-Object OpenQA.Selenium.Firefox.FirefoxDriver($firefoxoptions)
-    $FirefoxDriver.Navigate().GoToURL($siteURL)
-    Return $FirefoxDriver
-}
+#     # Start Firefox and navigate to URL
+#     $firefoxdriver = New-Object OpenQA.Selenium.Firefox.FirefoxDriver($firefoxoptions)
+#     $FirefoxDriver.Navigate().GoToURL($siteURL)
+#     Return $FirefoxDriver
+# }
 
 
-$objFirefoxDriver = Start-FirefoxBrowser -SiteURL 'https://www.microsoft.com/download/details.aspx?id=101315'
+# $objFirefoxDriver = Start-FirefoxBrowser -SiteURL 'https://www.microsoft.com/download/details.aspx?id=101315'
 
 
 # $objFirefoxDriver.FindElementByXPath('/html/body/main/div/div/form/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div/div/div/a').Click()
