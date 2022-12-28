@@ -16,34 +16,33 @@ New-Item -ItemType Directory -Path C:\ -Name Selenium -Force -Confirm:$false
 $url = 'https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-win32.zip'
 Invoke-WebRequest -Uri $url -OutFile "${downloads_dir}\geckodriver-v0.32.0-win32.zip"
 7z x "${downloads_dir}\geckodriver-v0.32.0-win32.zip" -oC:\Selenium
-dir C:\Selenium
-#Move-Item -Path C:\Selenium\geckodriver.exe -Destination C:\Selenium\lib\net45\geckodriver.exe
+Move-Item -Path C:\Selenium\geckodriver.exe -Destination C:\Selenium\lib\net45\geckodriver.exe
 
-# # initialise Selenium driver
-# $PathToFolder = 'C:\Selenium\lib\net45'
-# [System.Reflection.Assembly]::LoadFrom("{0}\WebDriver.dll" -f $PathToFolder)
-# if ($env:Path -notcontains ";$PathToFolder" ) {
-#     $env:Path += ";$PathToFolder"
-# }
+# initialise Selenium driver
+$PathToFolder = 'C:\Selenium\lib\net45'
+[System.Reflection.Assembly]::LoadFrom("{0}\WebDriver.dll" -f $PathToFolder)
+if ($env:Path -notcontains ";$PathToFolder" ) {
+    $env:Path += ";$PathToFolder"
+}
 
-# # function into memory
-# Function Start-FirefoxBrowser{
-#     Param(
-#         $SiteURL
-#     )
-#     # Create Firefox options object
-#     $firefoxoptions = new-object OpenQA.Selenium.Firefox.FirefoxOptions
-#     # $firefoxoptions.Profile = "$workingPath\FireFoxProfile"
-#     $firefoxoptions.BrowserExecutableLocation = "C:\Program Files\Mozilla Firefox\firefox.exe"
+# function into memory
+Function Start-FirefoxBrowser{
+    Param(
+        $SiteURL
+    )
+    # Create Firefox options object
+    $firefoxoptions = new-object OpenQA.Selenium.Firefox.FirefoxOptions
+    # $firefoxoptions.Profile = "$workingPath\FireFoxProfile"
+    $firefoxoptions.BrowserExecutableLocation = "C:\Program Files\Mozilla Firefox\firefox.exe"
  
-#     # Start Firefox and navigate to URL
-#     $firefoxdriver = New-Object OpenQA.Selenium.Firefox.FirefoxDriver($firefoxoptions)
-#     $FirefoxDriver.Navigate().GoToURL($siteURL)
-#     Return $FirefoxDriver
-# }
+    # Start Firefox and navigate to URL
+    $firefoxdriver = New-Object OpenQA.Selenium.Firefox.FirefoxDriver($firefoxoptions)
+    $FirefoxDriver.Navigate().GoToURL($siteURL)
+    Return $FirefoxDriver
+}
 
 
-# $objFirefoxDriver = Start-FirefoxBrowser -SiteURL 'https://www.microsoft.com/download/details.aspx?id=101315'
+$objFirefoxDriver = Start-FirefoxBrowser -SiteURL 'https://www.microsoft.com/download/details.aspx?id=101315'
 
 
 # $objFirefoxDriver.FindElementByXPath('/html/body/main/div/div/form/div/div[2]/div/div/div/div[2]/div/div/div/div/div[2]/div[3]/div/div/div/a').Click()
