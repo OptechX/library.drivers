@@ -25,3 +25,11 @@ jobs:
       - name: Linux Tests (powershell)
         run: ./tests/linux-vars.ps1
         shell: pwsh
+
+      - name: selenium python
+        run: ./tests/download.py
+        shell: python
+
+      - name: verify
+        run: ./tests/check.ps1
+        shell: pwsh
