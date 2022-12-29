@@ -31,7 +31,7 @@ jobs:
         run: pip3 install selenium
 
       - name: selenium python
-        run: python tests/download.py
+        run: python ./tests/download.py
         shell: python
 
       - name: verify
