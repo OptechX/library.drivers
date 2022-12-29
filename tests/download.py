@@ -18,7 +18,7 @@ surface_book_2 = 'https://www.microsoft.com/en-us/download/confirmation.aspx?id=
 surface_book = 'https://www.microsoft.com/en-us/download/confirmation.aspx?id=49497'
 
 def latest_download_file():
-    path = r'/Users/danijel-rpc/Projects/repasscloud/optechx.drivers/downloads'
+    path = r'/home/runner/work/optechx.drivers/optechx.drivers/downloads'
     os.chdir(path)
     files = sorted(os.listdir(os.getcwd()), key=os.path.getmtime)
     newest = files[-1]
