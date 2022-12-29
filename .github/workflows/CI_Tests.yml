@@ -27,7 +27,7 @@ jobs:
         shell: pwsh
 
       - name: selenium python
-        run: ./tests/download.py
+        run: tests/download.py
         shell: python
 
       - name: verify
