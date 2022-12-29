@@ -1,0 +1,2 @@
+pwd $HOME
+ls $HOME
