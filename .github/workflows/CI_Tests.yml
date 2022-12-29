@@ -21,6 +21,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: install tools
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -y cabextract tree
+          
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
@@ -39,6 +45,10 @@ jobs:
       - name: Run main
         run: |
           python3 tests/download.py
+
+      - name: tree
+        run: tree
+        shell: sh
 
       - name: verify
         run: ./tests/download-check.ps1
