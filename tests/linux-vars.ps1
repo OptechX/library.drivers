@@ -1,2 +1,1 @@
-pwd $HOME
-ls $HOME
+Get-ChildItem -Path .
