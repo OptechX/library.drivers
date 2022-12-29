@@ -9,6 +9,9 @@ import time
 # variables
 download_dir = "/home/runner/work/optechx.drivers/optechx.drivers/downloads"
 
+# notice
+print("File location using os.getcwd():", os.getcwd())
+
 # Surface Book Download Links
 surface_book_3 = 'https://www.microsoft.com/en-us/download/confirmation.aspx?id=101315'
 surface_book_2 = 'https://www.microsoft.com/en-us/download/confirmation.aspx?id=56261'
