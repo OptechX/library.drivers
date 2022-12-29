@@ -24,4 +24,4 @@ jobs:
 
       - name: Linux Tests (powershell)
         run: ./tests/linux-vars.ps1
-        shell: powershell
+        shell: pwsh
