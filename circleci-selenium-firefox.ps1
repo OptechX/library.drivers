@@ -9,14 +9,16 @@ $g = $d.ResponseUri.OriginalString
 $c = Split-Path -Path $d.ResponseUri.OriginalString -Leaf
 
 Invoke-WebRequest -Uri $g -OutFile "${downloads_dir}\${c}" -UseBasicParsing -DisableKeepAlive
-
+Start-Sleep -Seconds 5
 New-Item -ItemType Directory -Path C:\ -Name Selenium -Force -Confirm:$false
 7z x "${downloads_dir}\${c}" -oC:\Selenium
+Start-Sleep -Seconds 5
 
 # install/setup firefox
 if (-not(Test-Path -Path "C:\Program Files\Mozilla Firefox\firefox.exe"))
 {
     Invoke-WebRequest -Uri $firefox_msi -OutFile "${downloads_dir}\firefox_setup.msi" -UseBasicParsing -DisableKeepAlive
+    Start-Sleep -Seconds 5
     Start-Process -FilePath msiexec -ArgumentList "/i","${downloads_dir}\firefox_setup.msi","/qn" -Wait
 }
 
@@ -24,7 +26,7 @@ if (-not(Test-Path -Path "C:\Program Files\Mozilla Firefox\firefox.exe"))
 $url = 'https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-win32.zip'
 Invoke-WebRequest -Uri $url -OutFile "${downloads_dir}\geckodriver-v0.32.0-win32.zip"
 7z x "${downloads_dir}\geckodriver-v0.32.0-win32.zip" -oC:\Selenium
-Move-Item -Path C:\Selenium\geckodriver.exe -Destination C:\Selenium\lib\net45\geckodriver.exe
+Move-Item -Path 'C:\Selenium\geckodriver.exe' -Destination 'C:\Selenium\lib\net45\geckodriver.exe'
 
 # initialise Selenium driver
 $PathToFolder = 'C:\Selenium\lib\net45'
