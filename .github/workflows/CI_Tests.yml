@@ -1,4 +1,8 @@
 name: CI Tests
+
+env:
+  TESTS_DIR: tests
+
 on:
   push:
     branches: [ "main" ]
@@ -26,7 +30,7 @@ jobs:
         run: |
           sudo apt-get -y update
           sudo apt-get install -y cabextract tree
-          
+
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
@@ -44,7 +48,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Run main
         run: |
-          python3 tests/download.py
+          python3 ${{ env.TESTS_DIR }}/download.py
 
       - name: tree
         run: tree
