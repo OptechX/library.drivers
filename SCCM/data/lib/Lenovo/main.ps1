@@ -63,7 +63,7 @@ foreach ($pc in $pc_list)
         200 {
             # record exists, update existing record
             try {
-                Invoke-RestMethod -Uri "${Env:API_PROD_URI}/v1/DriversCore/${uid}" -Method Update -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
+                Invoke-RestMethod -Uri "${Env:API_PROD_URI}/v1/DriversCore/${uid}" -Method Put -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
             }
             catch {
                 Write-Error "Error: $($_.Exception)"
