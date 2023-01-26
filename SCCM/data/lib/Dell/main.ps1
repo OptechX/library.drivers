@@ -61,7 +61,8 @@ foreach ($pc in $pc_list)
     {
         404 {
             try {
-                Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
+                #Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
+                $json
             }
             catch {
                 Write-Error "Error: $($_.Exception)"
