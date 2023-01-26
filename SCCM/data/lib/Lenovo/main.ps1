@@ -57,6 +57,7 @@ foreach ($pc in $pc_list)
             }
             catch {
                 Write-Error "Error: $($_.Exception)"
+                Write-Output "Error 1"
                 $json
             }
         }
@@ -68,6 +69,7 @@ foreach ($pc in $pc_list)
             }
             catch {
                 Write-Error "Error: $($_.Exception)"
+                Write-Output "Error 2"
                 $json
             }
         }
