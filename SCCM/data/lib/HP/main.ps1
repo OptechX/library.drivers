@@ -61,7 +61,14 @@ foreach ($pc in $pc_list)
             }
         }
         200 {
-            # record exists, no action required
+            # record exists, update existing record
+            try {
+                Invoke-RestMethod -Uri "${Env:API_PROD_URI}/v1/DriversCore/${uid}" -Method Update -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
+            }
+            catch {
+                Write-Error "Error: $($_.Exception)"
+                $json
+            }
         }
         Default {
             Write-Output "Other reason for failure"
@@ -69,5 +76,6 @@ foreach ($pc in $pc_list)
         }
     }        
     
+    # sleep on loop
     Start-Sleep -Seconds 1
 }
