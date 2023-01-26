@@ -4,6 +4,9 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+env:
+  API_PROD_URI: "https://engine.api.prod.optechx-data.com"
+
 jobs:
   build:
     runs-on: ubuntu-latest
