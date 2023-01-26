@@ -47,13 +47,13 @@ foreach ($pc in $pc_list)
     $json = $payload | ConvertTo-Json
 
     # create dummy request for exisiting UID first
-    $req = Invoke-WebRequest -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore/uid/${uid}" -Method GET -SkipHttpErrorCheck
+    $req = Invoke-WebRequest -Uri "${Env:API_PROD_URI}/v1/DriversCore/uid/${uid}" -Method GET -SkipHttpErrorCheck
 
     switch ($req.StatusCode)
     {
         404 {
             try {
-                Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
+                Invoke-RestMethod -Uri "${Env:API_PROD_URI}/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
             }
             catch {
                 Write-Error "Error: $($_.Exception)"
