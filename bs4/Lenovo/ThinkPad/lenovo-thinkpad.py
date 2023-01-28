@@ -6,15 +6,16 @@ import os
 import re
 
 # html file variables
-html_src = 'page_source.html'
-output_csv = 'lenovo-thinkpad.csv'
+html_src = os.path.join(os.path.dirname(os.path.realpath(__file__)),'page_source.html')
+output_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'lenovo-thinkpad.csv')
+tmp_txt = os.path.join(os.path.dirname(os.path.realpath(__file__)),'temp.txt')
 csv_header = 'Model,Win7,Win8.1,Win10,Win11'
 
 # remove if file exists
 try:
     os.remove(html_src)
     os.remove(output_csv)
-    os.remove('temp.txt')
+    os.remove(tmp_txt)
 except OSError:
     pass
 
