@@ -4,9 +4,9 @@ from re import search
 import os
 
 # html file variables
-html_src = os.path.join(os.path.dirname(os.path.realpath(__file__)),'page_source.html')
-output_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'hp-all.csv')
-tmp_txt = os.path.join(os.path.dirname(os.path.realpath(__file__)),'temp.txt')
+html_src = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/page_source.html')
+output_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/hp-all.csv')
+tmp_txt = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/temp.txt')
 csv_header = 'Make,Series,Model,Win7,Win8.1,Win10,Win11'
 
 # remove if file exists

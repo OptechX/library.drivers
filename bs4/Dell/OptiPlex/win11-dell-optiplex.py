@@ -11,8 +11,8 @@ soup = BeautifulSoup(r.text, 'html.parser')
 data_table = soup.find('table', class_ = 'table-bordered table-hover table-condensed')
 
 # define Windows 10 Optiplex CSV
-win11_optiplex_csv = 'bs4/Dell/output/win11_dell_optiplex.csv'
-win11_optiplex_csv2 = 'bs4/Dell/output/win11_dell_optiplex2.csv'
+win11_optiplex_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/win11_dell_optiplex.csv')
+win11_optiplex_csv2 = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/win11_dell_optiplex2.csv')
 
 # remove if file exists
 try:

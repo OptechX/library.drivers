@@ -10,8 +10,8 @@ soup = BeautifulSoup(r.text, 'html.parser')
 data_table = soup.find('table', class_ = 'table-bordered table-hover table-condensed')
 
 # define Windows 11 Latitude CSV
-win11_latitude_csv = 'bs4/Dell/output/win11_dell_latitude.csv'
-win11_latitude_csv2 = 'bs4/Dell/output/win11_dell_latitude2.csv'
+win11_latitude_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/win11_dell_latitude.csv')
+win11_latitude_csv2 = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/win11_dell_latitude2.csv')
 
 # remove if file exists
 try:

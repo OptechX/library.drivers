@@ -10,8 +10,8 @@ soup = BeautifulSoup(r.text, 'html.parser')
 data_table = soup.find('table', class_ = 'table-bordered table-hover table-condensed')
 
 # define Windows 10 XPS CSV
-win10_xps_csv = 'bs4/Dell/output/win10_dell_xps.csv'
-win10_xps_csv2 = 'bs4/Dell/output/win10_dell_xps2.csv'
+win10_xps_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/win10_dell_xps.csv')
+win10_xps_csv2 = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/win10_dell_xps2.csv')
 
 # remove if file exists
 try:
