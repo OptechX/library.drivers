@@ -44,50 +44,52 @@ with open(html_src, 'r') as f:
 
     soup = BeautifulSoup(contents, 'lxml')
     data_table = soup.find_all('table')
-    print(len(data_table))
+    # print(len(data_table))
 
+# set the target table
 lenovolaptop_driver_pack = data_table[6]
-
-
 
 for machine in lenovolaptop_driver_pack.find_all('tbody'):
     rows = machine.find_all('tr')
     for row in rows:
+        # create blank line for CSV
         line_output = ''
+
+        # get the machine name and add to the line, including 2x 'No,' for Win7/8.1
         pl_machine = row.find('td').text.replace(',','')
-        line_output = line_output + pl_machine + ','
-        pl_win7 = row.find_all('td')[1].text
-        if (pl_win7 != None):
-            if (pl_win7 != '-'):
-                # print(f'{pl_machine} --> {pl_win7}')
-                line_output = line_output + 'Yes,'
-            else:
-                line_output = line_output + 'No,'
-        pl_win8 = row.find_all('td')[2].text
-        if (pl_win8 != None):
-            if (pl_win8 != '-'):
-                # print(f'{pl_machine} --> {pl_win8}')
-                line_output = line_output + 'Yes,'
-            else:
-                line_output = line_output + 'No,'
-        pl_win10 = row.find_all('td')[3].text
+        line_output = line_output + pl_machine + ',No,No,'
+
+        """
+        This secion is not required, as there is no Win7/Win8.1 for this machine
+        """
+        # pl_win7 = row.find_all('td')[1].text
+        # if (pl_win7 != None):
+        #     if (pl_win7 != '-'):
+        #         # print(f'{pl_machine} --> {pl_win7}')
+        #         line_output = line_output + 'Yes,'
+        #     else:
+        #         line_output = line_output + 'No,'
+        # pl_win8 = row.find_all('td')[2].text
+        # if (pl_win8 != None):
+        #     if (pl_win8 != '-'):
+        #         # print(f'{pl_machine} --> {pl_win8}')
+        #         line_output = line_output + 'Yes,'
+        #     else:
+        #         line_output = line_output + 'No,'
+
+        pl_win10 = row.find_all('td')[1].text
         if (pl_win10 != None):
             if (pl_win10 != '-'):
                 line_output = line_output + 'Yes,'
             else:
                 line_output = line_output + 'No,'
-        if (len(row.find_all('td')) == 4):
-            line_output = line_output + 'Yes'
-        if (len(row.find_all('td')) == 5):
-            try:
-                pl_win11 = row.find_all('td')[4].text
-                if (pl_win11 != None):
-                    if (pl_win11 != '-'):
-                        line_output = line_output + 'Yes'
-                    else:
-                        line_output = line_output + 'No'
-            except:
-                line_output = line_output + 'Yes'
+        pl_win11 = row.find_all('td')[2].text
+        if (pl_win11 != None):
+            if (pl_win11 != '-'):
+                line_output = line_output + 'Yes,'
+            else:
+                line_output = line_output + 'No,'
+
         with open(output_csv, 'a') as f:
             f.write(line_output)
             f.write('\n')
