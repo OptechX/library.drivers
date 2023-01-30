@@ -45,6 +45,7 @@ foreach ($csv in $CsvFiles)
 
         [System.String]$API_BASE_URI = 'https://engine.api.prod.optechx-data.com'
         $UID = $Payload.uid
+        Write-Output "Test UID: ${UID}"
         try {
             $API_RESPONSE = Invoke-WebRequest -Uri "${API_BASE_URI}/v1/DriversCore/uid/${UID}" -Method Get -UseBasicParsing -SkipHttpErrorCheck -ErrorAction Stop
     
