@@ -81,4 +81,6 @@ jobs:
         run: |
           . ./app/load-functions.ps1
           . ./app/Dell/dell-latitude.ps1
+          . ./app/Dell/dell-optiplex.ps1
+          . ./app/Dell/dell-xps.ps1
         shell: pwsh
