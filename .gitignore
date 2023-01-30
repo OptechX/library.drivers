@@ -364,3 +364,4 @@ bs4/Lenovo/ThinkPad/page_source.html
 bs4/Lenovo/ThinkStation/lenovo-thinkstation.csv
 bs4/Lenovo/ThinkStation/page_source.html
 read-csv.ps1
+test-ps.ps1
