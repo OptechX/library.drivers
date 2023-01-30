@@ -49,30 +49,35 @@ jobs:
           done
         shell: bash
 
-      - name: Archive Dell CSV output
-        uses: actions/upload-artifact@v3
-        with:
-          name: Dell
-          path: |
-            src/Dell/Latitude/output
-            src/Dell/OptiPlex/output
-            src/Dell/XPS/output
-          retention-days: 3
+      # - name: Archive Dell CSV output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: Dell
+      #     path: |
+      #       src/Dell/Latitude/output
+      #       src/Dell/OptiPlex/output
+      #       src/Dell/XPS/output
+      #     retention-days: 3
 
-      - name: Archive HP CSV output
-        uses: actions/upload-artifact@v3
-        with:
-          name: HP
-          path: src/HP/output
-          retention-days: 3
+      # - name: Archive HP CSV output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: HP
+      #     path: src/HP/output
+      #     retention-days: 3
 
-      - name: Archive Lenovo CSV output
-        uses: actions/upload-artifact@v3
-        with:
-          name: Lenovo
-          path: |
-            src/Lenovo/LenovoLaptop/output
-            src/Lenovo/ThinkCentre/output
-            src/Lenovo/ThinkPad/output
-            src/Lenovo/ThinkStation/output
-          retention-days: 3
+      # - name: Archive Lenovo CSV output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: Lenovo
+      #     path: |
+      #       src/Lenovo/LenovoLaptop/output
+      #       src/Lenovo/ThinkCentre/output
+      #       src/Lenovo/ThinkPad/output
+      #       src/Lenovo/ThinkStation/output
+      #     retention-days: 3
+
+      - name: Inject Dell
+        run: |
+          . ./app/load-functions.ps1
+          . ./app/Dell/dell-latitude.ps1
