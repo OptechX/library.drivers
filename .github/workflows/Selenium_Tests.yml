@@ -65,7 +65,9 @@ jobs:
         shell: sh
 
       - name: verify
-        run: ./tests/download-check.ps1
+        run: |
+          ./tests/download-check.ps1
+          dir bs4/Dell/Latitude/output
         shell: pwsh
 
       - name: Archive CSV output
@@ -73,9 +75,9 @@ jobs:
         with:
           name: Dell
           path: |
-            bs4/Dell/Latitude/output/win10-dell-latitude.csv
-            bs4/Dell/Latitude/output/win11-dell-latitude.csv
-            bs4/Dell/OptiPlex/output/win10-dell-optiplex.csv
-            bs4/Dell/OptiPlex/output/win11-dell-optiplex.csv
-            bs4/Dell/XPS/output/win10-dell-xps.csv
-            bs4/Dell/XPS/output/win11-dell-xps.csv
+            ./bs4/Dell/Latitude/output/win10-dell-latitude.csv
+#            bs4/Dell/Latitude/output/win11-dell-latitude.csv
+#            bs4/Dell/OptiPlex/output/win10-dell-optiplex.csv
+#            bs4/Dell/OptiPlex/output/win11-dell-optiplex.csv
+#            bs4/Dell/XPS/output/win10-dell-xps.csv
+#            bs4/Dell/XPS/output/win11-dell-xps.csv
