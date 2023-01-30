@@ -1,4 +1,4 @@
-name: Selenium Tests
+name: Main Task
 
 on:
   # push:
