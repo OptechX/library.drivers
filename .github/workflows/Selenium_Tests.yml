@@ -74,8 +74,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Dell
-          path: |
-            ./bs4/Dell/Latitude/output/win10-dell-latitude.csv
+          path: bs4
+#            bs4/Dell/Latitude/output/win10-dell-latitude.csv
 #            bs4/Dell/Latitude/output/win11-dell-latitude.csv
 #            bs4/Dell/OptiPlex/output/win10-dell-optiplex.csv
 #            bs4/Dell/OptiPlex/output/win11-dell-optiplex.csv
