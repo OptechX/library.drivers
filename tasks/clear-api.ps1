@@ -1,6 +1,6 @@
-foreach ($id in (Invoke-RestMethod -Uri https://engine.api.dev.optechx-data.com/v1/DriversCore -Method Get).id)
+foreach ($id in (Invoke-RestMethod -Uri https://engine.api.prod.optechx-data.com/v1/DriversCore -Method Get).id)
 {
     Write-Output "Clearing record: ${id}"
-    Invoke-RestMethod -Uri "https://engine.api.dev.optechx-data.com/v1/DriversCore/${id}" -Method Delete -Headers @{accept="json/application"}
+    Invoke-RestMethod -Uri "https://engine.api.prod.optechx-data.com/v1/DriversCore/${id}" -Method Delete -Headers @{accept="json/application"}
     Start-Sleep -Milliseconds 50
 }
