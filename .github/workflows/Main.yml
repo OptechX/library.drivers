@@ -38,7 +38,7 @@ jobs:
       
       - name: Generate Lenovo CSV Data
         run: |
-          mFiles = `find src/Lenovo -name "*.py"`
+          mFiles=`find src/Lenovo -name "*.py"`
           for f in "${mFiles[@]}"
           do
             echo "$f"
