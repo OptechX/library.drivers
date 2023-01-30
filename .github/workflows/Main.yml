@@ -24,23 +24,27 @@ jobs:
 
       - name: Generate Dell CSV Data
         run: |
-          python3 src/Dell/OptiPlex/win11-dell-optiplex.py
-          python3 src/Dell/OptiPlex/win10-dell-optiplex.py
-          python3 src/Dell/XPS/win10-dell-xps.py
-          python3 src/Dell/XPS/win11-dell-xps.py
-          python3 src/Dell/Latitude/win10-dell-latitude.py
-          python3 src/Dell/Latitude/win11-dell-latitude.py
-        shell: sh
+          mFiles=`find src/Dell -name "*.py"`
+          for f in ${mFiles[@]}
+          do
+            python3 "$f"
+          done
+        shell: bash
 
       - name: Generate HP CSV Data
-        run: python3 src/HP/main-hp.py
-        shell: sh
+        run: |
+          mFiles=`find src/HP -name "*.py"`
+          for f in ${mFiles[@]}
+          do
+            python3 "$f"
+          done
+        shell: bash
       
       - name: Generate Lenovo CSV Data
         run: |
           mFiles=`find src/Lenovo -name "*.py"`
           for f in ${mFiles[@]}
           do
-            echo "$f"
+            python3 "$f"
           done
         shell: bash
