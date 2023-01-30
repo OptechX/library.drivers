@@ -73,7 +73,7 @@ foreach ($csv in $CsvFiles)
                     [System.Boolean]$INVOKE_UPDATE = $false
     
                     # update CpuArch (if required)
-                    [System.Collections.ArrayList]$tmpArrayList = $MATCHED_DATA.cpuArch
+                    [System.Collections.ArrayList]$tmpArrayList = [System.String[]]$MATCHED_DATA.cpuArch
                     if ($Payload.cpuArch -notin $tmpArrayList)
                     {
                         Write-Output "cpuArch not matched"
@@ -83,7 +83,7 @@ foreach ($csv in $CsvFiles)
                     }
     
                     # update WindowsOS (if required)
-                    [System.Collections.ArrayList]$tmpArrayList = $MATCHED_DATA.windowsOS
+                    [System.Collections.ArrayList]$tmpArrayList = [System.String[]]$MATCHED_DATA.windowsOS
                     if ($Payload.windowsOS -notin $tmpArrayList)
                     {
                         Write-Output "windowsOS not matched"
@@ -96,11 +96,6 @@ foreach ($csv in $CsvFiles)
                     if ([int]$Payload.productionYear -gt [int]$MATCHED_DATA.productionYear)
                     {
                         Write-Output "productionYear not matched"
-                        $INVOKE_UPDATE = $true
-                    }
-                    else
-                    {
-                        [int]$Payload.productionYear = [int]$MATCHED_DATA.productionYear
                         $INVOKE_UPDATE = $true
                     }
     
