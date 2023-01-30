@@ -59,7 +59,7 @@ for machine in data_table.find_all('tbody'):
                     .replace('8(','8 (')\
                     .replace('9(','9 (')\
                     .strip()
-                pl_machine = re.sub('2.*in.*1','2-in-1', pl_machine)
+                # pl_machine = re.sub('2.*in.*1','2-in-1', pl_machine)
                 # print(f'{pl_machine} --> {pl_date}')
                 output = pl_machine + "," + pl_date
                 with open(win10_latitude_csv, 'a') as f:
