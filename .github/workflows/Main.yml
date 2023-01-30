@@ -31,23 +31,23 @@ jobs:
           done
         shell: bash
 
-      - name: Generate HP CSV Data
-        run: |
-          mFiles=`find src/HP -name "*.py"`
-          for f in ${mFiles[@]}
-          do
-            python3 "$f"
-          done
-        shell: bash
+      # - name: Generate HP CSV Data
+      #   run: |
+      #     mFiles=`find src/HP -name "*.py"`
+      #     for f in ${mFiles[@]}
+      #     do
+      #       python3 "$f"
+      #     done
+      #   shell: bash
       
-      - name: Generate Lenovo CSV Data
-        run: |
-          mFiles=`find src/Lenovo -name "*.py"`
-          for f in ${mFiles[@]}
-          do
-            python3 "$f"
-          done
-        shell: bash
+      # - name: Generate Lenovo CSV Data
+      #   run: |
+      #     mFiles=`find src/Lenovo -name "*.py"`
+      #     for f in ${mFiles[@]}
+      #     do
+      #       python3 "$f"
+      #     done
+      #   shell: bash
 
       # - name: Archive Dell CSV output
       #   uses: actions/upload-artifact@v3
@@ -81,4 +81,4 @@ jobs:
         run: |
           . ./app/load-functions.ps1
           . ./app/Dell/dell-latitude.ps1
-        shell: powershell
+        shell: pwsh
