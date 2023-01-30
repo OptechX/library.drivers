@@ -24,5 +24,8 @@ jobs:
 
       - name: Generate Dell CSV Data
         run: |
-          dellFiles = `find src/Dell -name "*.py"`
-          for f in ${dellFiles}[@]}; do python3 "$f"; done
+          mFiles=`find ./src/Dell -name "*.py"`
+          for f in ${dellFiles}[@]}
+          do
+            python3 "$f"
+          done
