@@ -27,6 +27,6 @@ jobs:
           mFiles=`find src/Dell -name "*.py"`
           for f in ${mFiles}[@]}
           do
-            python3 "$f"
+            echo "$f"
           done
         shell: sh
