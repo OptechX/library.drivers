@@ -94,13 +94,12 @@ for machine in lenovolaptop_driver_pack.find_all('tbody'):
             f.write(line_output)
             f.write('\n')
 
-with open(output_csv, "r") as input:
-    with open("temp.txt", "w") as output:
-        # iterate all lines from file
-        for line in input:
-            # if text matches then don't write it
-            if line.strip("\n") != "Sub-series,Yes,Yes,Yes,Yes":
-                output.write(line)
+bad_words = ['Sub-series']
+
+with open(output_csv) as oldfile, open(tmp_txt, 'w') as newfile:
+    for line in oldfile:
+        if not any(bad_word in line for bad_word in bad_words):
+            newfile.write(line)
 
 # replace file with original name
-os.replace('temp.txt', output_csv)
+os.replace(tmp_txt, output_csv)
