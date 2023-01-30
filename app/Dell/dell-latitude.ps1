@@ -68,6 +68,9 @@ foreach ($csv in $CsvFiles)
                 # 200 == object found
                 200 {
                     Write-Output "200 == object found"
+                    $MATCHED_DATA
+                    $Payload
+                    
                     [DriversCorePayload]$MATCHED_DATA = $API_RESPONSE.Content | ConvertFrom-Json
     
                     [System.Boolean]$INVOKE_UPDATE = $false
