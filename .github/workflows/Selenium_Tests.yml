@@ -4,8 +4,6 @@ env:
   TESTS_DIR: tests
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
