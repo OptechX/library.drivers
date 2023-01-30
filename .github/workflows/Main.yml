@@ -81,4 +81,4 @@ jobs:
         run: |
           . ./app/load-functions.ps1
           . ./app/Dell/dell-latitude.ps1
-        shell: pwsh
+        shell: powershell
