@@ -9,7 +9,7 @@
 foreach ($csv in $CsvFiles)
 {
     if ($csv -like "*win10*") { [System.String]$windowsOS = "Windows 10"}
-    if ($csvfiles -like "*win11*") { [System.String]$windowsOS = "Windows 11"}
+    if ($csv -like "*win11*") { [System.String]$windowsOS = "Windows 11"}
     
     $PC_LIST = Import-Csv -Path $csv
 
@@ -70,7 +70,7 @@ foreach ($csv in $CsvFiles)
                     Write-Output "200 == object found"
                     $MATCHED_DATA
                     $Payload
-                    
+
                     [DriversCorePayload]$MATCHED_DATA = $API_RESPONSE.Content | ConvertFrom-Json
     
                     [System.Boolean]$INVOKE_UPDATE = $false
