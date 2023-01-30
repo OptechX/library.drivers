@@ -142,6 +142,6 @@ foreach ($csv in $CsvFiles)
             Write-Output "<<<END DIAGNOSTIC DATA"
         }
     }
-    Start-Sleep -Seconds 2
+    Start-Sleep -Seconds 3
 }
 #endregion
