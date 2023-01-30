@@ -2,6 +2,9 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from re import search
 import os
+import sys
+
+print(f'Running script -> {sys.argv[0]}')
 
 # html file variables
 html_src = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/page_source.html')

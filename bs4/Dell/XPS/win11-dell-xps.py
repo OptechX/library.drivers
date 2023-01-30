@@ -2,6 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import re
+import sys
+
+print(f'Running script -> {sys.argv[0]}')
 
 # Dell XPS
 url = 'https://www.dell.com/support/kbdoc/en-au/000109959/dell-command-deploy-driver-packs-for-xps-models'
