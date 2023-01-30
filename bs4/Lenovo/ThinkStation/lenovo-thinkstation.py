@@ -44,11 +44,9 @@ with open(html_src, 'r') as f:
 
     soup = BeautifulSoup(contents, 'lxml')
     data_table = soup.find_all('table')
-    print(len(data_table))
+    # print(len(data_table))  issue-5
 
 thinkstation_driver_pack = data_table[5]
-
-
 
 for machine in thinkstation_driver_pack.find_all('tbody'):
     rows = machine.find_all('tr')

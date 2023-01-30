@@ -44,7 +44,7 @@ with open(html_src, 'r') as f:
 
     soup = BeautifulSoup(contents, 'lxml')
     data_table = soup.find_all('table')
-    print(len(data_table))
+    # print(len(data_table))  issue-5
 
 thinkcentre_driver_pack = data_table[4]
 
