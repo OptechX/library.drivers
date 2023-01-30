@@ -1,5 +1,5 @@
 class DriversCorePayload {
-    [int16]$id = 0
+    [System.Int64]$id = 0
     [System.Guid]$uuid = [System.Guid]::NewGuid().ToString()
     [System.String]$uid
     [System.String]$originalEquipmentManufacturer
@@ -41,7 +41,7 @@ function Update-ApiDriversCore {
             }
             # 200 == object found
             200 {
-                $MATCHED_DATA = $API_RESPONSE.Content | ConvertFrom-Json
+                [DriversCorePayload]$MATCHED_DATA = $API_RESPONSE.Content | ConvertFrom-Json
 
                 [System.Boolean]$INVOKE_UPDATE = $false
 
@@ -72,7 +72,7 @@ function Update-ApiDriversCore {
                 if ($INVOKE_UPDATE)
                 {
                     # retain existing values required
-                    $Payload.id = $MATCHED_DATA.$id
+                    $Payload.id = $MATCHED_DATA.id
                     $Payload.uuid = $MATCHED_DATA.uuid
 
                     # create JSON object
@@ -80,7 +80,7 @@ function Update-ApiDriversCore {
 
                     # update API endpoint with new data
                     try {
-                        Invoke-RestMethod -Uri "${API_BASE_URI}/v1/DriversCore/$($json.id)" -Method Put -UseBasicParsing -Body $json -ContentType "application/json" -ErrorAction Stop
+                        Invoke-RestMethod -Uri "${API_BASE_URI}/v1/DriversCore/$($PAYLOAD.id)" -Method Put -UseBasicParsing -Body $json -Headers @{"Content-Type"="application/json"} -ErrorAction Stop
                     } catch {
                         Write-Output "match in matched_data error 2"
                         "${API_BASE_URI}/v1/DriversCore/$($json.id)"
