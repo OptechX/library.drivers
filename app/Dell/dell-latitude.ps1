@@ -9,7 +9,7 @@
 foreach ($csv in $CsvFiles)
 {
     if ($csv -like "*win10*") { [System.String]$windowsOS = "Windows 10"}
-    if ($csv -like "*win11*") { [System.String]$windowsOS = "Windows 11"}
+    if ($csvfiles -like "*win11*") { [System.String]$windowsOS = "Windows 11"}
     
     $PC_LIST = Import-Csv -Path $csv
 
@@ -22,29 +22,29 @@ foreach ($csv in $CsvFiles)
 
         # UID
         $pattern = '[^a-zA-Z_0-9:]'
-        $uid = "${MANUFACTURER}::${pcMake}::${pcModel}" -replace ' ','_'
-        $uid = $uid -replace $pattern, ''
+        $UID = "${MANUFACTURER}::${pcMake}::${pcModel}" -replace ' ','_'
+        $UID = $UID -replace $pattern, ''
         
         # UPDATED/PRODUCTION YEAR
         [System.String]$UpdatedYear = $pcUpdated.Split('/')[-1]
 
         # PAYLOAD
-        $payload = [DriversCorePayload]::new()
-        $payload.id = 0
-        $payload.uuid = [System.Guid]::NewGuid().ToString()
-        $payload.uid = $uid
-        $payload.originalEquipmentManufacturer = $MANUFACTURER
-        $payload.make = $pcMake
-        $payload.model = $pcModel
-        $payload.productionYear = [Int64]$UpdatedYear
-        $payload.cpuArch = @("x64")
-        $payload.windowsOS = @($windowsOS)
+        $Payload = [DriversCorePayload]::new()
+        $Payload.id = 0
+        $Payload.uuid = [System.Guid]::NewGuid().ToString()
+        $Payload.uid = $UID
+        $Payload.originalEquipmentManufacturer = $MANUFACTURER
+        $Payload.make = $pcMake
+        $Payload.model = $pcModel
+        $Payload.productionYear = [Int64]$UpdatedYear
+        $Payload.cpuArch = @("x64")
+        $Payload.windowsOS = @($windowsOS)
 
         # TRIGGER UPDATE
-        # Update-ApiDriversCore -Payload $payload
+        # Update-ApiDriversCore -Payload $Payload
 
         [System.String]$API_BASE_URI = 'https://engine.api.prod.optechx-data.com'
-        $UID = $Payload.uid
+
         Write-Output "About to run test on: ${UID}"
         try {
             $API_RESPONSE = Invoke-WebRequest -Uri "${API_BASE_URI}/v1/DriversCore/uid/${UID}" -Method Get -UseBasicParsing -SkipHttpErrorCheck -ErrorAction Stop
@@ -73,21 +73,21 @@ foreach ($csv in $CsvFiles)
                     [System.Boolean]$INVOKE_UPDATE = $false
     
                     # update CpuArch (if required)
-                    [System.Collections.ArrayList]$tmpArrayList = $Payload.cpuArch
-                    if ($MATCHED_DATA.cpuArch -notin $tmpArrayList)
+                    [System.Collections.ArrayList]$tmpArrayList = $MATCHED_DATA.cpuArch
+                    if ( -notin $tmpArrayList)
                     {
                         Write-Output "cpuArch not matched"
-                        $tmpArrayList.Add($MATCHED_DATA.cpuArch)
+                        $tmpArrayList.Add($Payload.cpuArch)
                         $Payload.cpuArch = $tmpArrayList.ToArray()
                         $INVOKE_UPDATE = $true
                     }
     
                     # update WindowsOS (if required)
-                    [System.Collections.ArrayList]$tmpArrayList = $Payload.windowsOS
-                    if ($MATCHED_DATA.windowsOS -notin $tmpArrayList)
+                    [System.Collections.ArrayList]$tmpArrayList = $MATCHED_DATA.windowsOS
+                    if ($Payload.windowsOS -notin $tmpArrayList)
                     {
                         Write-Output "windowsOS not matched"
-                        $tmpArrayList.Add($MATCHED_DATA.windowsOS)
+                        $tmpArrayList.Add($Payload.windowsOS)
                         $Payload.windowsOS = $tmpArrayList.ToArray()
                         $INVOKE_UPDATE = $true
                     }
@@ -96,6 +96,11 @@ foreach ($csv in $CsvFiles)
                     if ([int]$Payload.productionYear -gt [int]$MATCHED_DATA.productionYear)
                     {
                         Write-Output "productionYear not matched"
+                        $INVOKE_UPDATE = $true
+                    }
+                    else
+                    {
+                        [int]$Payload.productionYear = [int]$MATCHED_DATA.productionYear
                         $INVOKE_UPDATE = $true
                     }
     
@@ -113,8 +118,8 @@ foreach ($csv in $CsvFiles)
     
                         # update API endpoint with new data
                         try {
-                            Write-Output "Update URI: ${API_BASE_URI}/v1/DriversCore/$($PAYLOAD.id)"
-                            Invoke-RestMethod -Uri "${API_BASE_URI}/v1/DriversCore/$($PAYLOAD.id)" -Method Put -UseBasicParsing -Body $json -Headers @{"Content-Type"="application/json"} -ErrorAction Stop
+                            Write-Output "Update URI: ${API_BASE_URI}/v1/DriversCore/$($Payload.id)"
+                            Invoke-RestMethod -Uri "${API_BASE_URI}/v1/DriversCore/$($Payload.id)" -Method Put -UseBasicParsing -Body $json -Headers @{"Content-Type"="application/json"} -ErrorAction Stop
                         } catch {
                             Write-Output "match in matched_data error 2"
                             "${API_BASE_URI}/v1/DriversCore/$($json.id)"
