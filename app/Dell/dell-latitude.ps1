@@ -74,7 +74,7 @@ foreach ($csv in $CsvFiles)
     
                     # update CpuArch (if required)
                     [System.Collections.ArrayList]$tmpArrayList = $MATCHED_DATA.cpuArch
-                    if ( -notin $tmpArrayList)
+                    if ($Payload.cpuArch -notin $tmpArrayList)
                     {
                         Write-Output "cpuArch not matched"
                         $tmpArrayList.Add($Payload.cpuArch)
