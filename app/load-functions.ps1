@@ -21,7 +21,7 @@ function Update-ApiDriversCore {
 
     # find if object exists
     try {
-        $API_RESPONSE = Invoke-WebRequest -Uri "/v1/DriversCore/uid/${UID}" -Method Get -UseBasicParsing -SkipHttpErrorCheck -ErrorAction Stop
+        $API_RESPONSE = Invoke-WebRequest -Uri "${API_BASE_URI}/v1/DriversCore/uid/${UID}" -Method Get -UseBasicParsing -SkipHttpErrorCheck -ErrorAction Stop
 
         switch ($API_RESPONSE.StatusCode)
         {
