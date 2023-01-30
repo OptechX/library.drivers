@@ -47,4 +47,26 @@ jobs:
           do
             python3 "$f"
           done
+          tree
         shell: bash
+
+      # - name: Archive Dell CSV output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: Dell
+      #     path: /home/runner/work/optechx.drivers/optechx.drivers/bs4/Dell
+      #     retention-days: 3
+
+      # - name: Archive HP CSV output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: HP
+      #     path: /home/runner/work/optechx.drivers/optechx.drivers/bs4/HP
+      #     retention-days: 3
+
+      # - name: Archive Lenovo CSV output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: Lenovo
+      #     path: /home/runner/work/optechx.drivers/optechx.drivers/bs4/Lenovo
+      #     retention-days: 3
