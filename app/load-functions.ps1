@@ -46,20 +46,20 @@ function Update-ApiDriversCore {
                 [System.Boolean]$INVOKE_UPDATE = $false
 
                 # update CpuArch (if required)
-                [System.Collections.ArrayList]$tmpArryList = $Payload.cpuArch
-                if (-not($tmpArryList.Contains($MATCHED_DATA.cpuArch)))
+                [System.Collections.ArrayList]$tmpArrayList = $Payload.cpuArch
+                if ($MATCHED_DATA.cpuArch -notin $tmpArrayList)
                 {
-                    $tmpArryList.Add($MATCHED_DATA.cpuArch)
-                    $Payload.cpuArch = $tmpArryList.ToArray()
+                    $tmpArrayList.Add($MATCHED_DATA.cpuArch)
+                    $Payload.cpuArch = $tmpArrayList.ToArray()
                     $INVOKE_UPDATE = $true
                 }
 
                 # update WindowsOS (if required)
-                [System.Collections.ArrayList]$tmpArryList = $Payload.windowsOS
-                if (-not($tmpArryList.Contains($MATCHED_DATA.windowsOS)))
+                [System.Collections.ArrayList]$tmpArrayList = $Payload.windowsOS
+                if ($MATCHED_DATA.windowsOS -notin $tmpArrayList)
                 {
-                    $tmpArryList.Add($MATCHED_DATA.windowsOS)
-                    $Payload.windowsOS = $tmpArryList.ToArray()
+                    $tmpArrayList.Add($MATCHED_DATA.windowsOS)
+                    $Payload.windowsOS = $tmpArrayList.ToArray()
                     $INVOKE_UPDATE = $true
                 }
 
