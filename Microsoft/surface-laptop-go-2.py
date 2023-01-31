@@ -47,24 +47,18 @@ driver = webdriver.Chrome(options=options)
 driver.get('https://www.microsoft.com/en-us/download/details.aspx?id=104251')
 time.sleep(3)
 elements = driver.find_elements(By.PARTIAL_LINK_TEXT,"Download")
-
-for i in elements:
-    print(f'Found this -> {i.get_attribute("href")}')
-
 href = elements[0].get_attribute("href")
-
 driver.get(href)
 elements2 = driver.find_elements(By.PARTIAL_LINK_TEXT,"manually")
 time.sleep(2)
-
 for i in elements2:
     if (search('SurfaceLaptopGo', i.get_attribute('href'))):
         href2 = i.get_attribute('href')
 
-
+# QUIT CHROME DRIVER
 driver.quit()
 
-
+# DETERMINE VALUES
 if search('Win10', href2):
     win10 = 'True,'
 if search('Win11', href2):
