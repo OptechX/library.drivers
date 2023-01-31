@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 from re import search
 import os
 import sys
-import time
 
 print(f'Running script -> {sys.argv[0]}')
 
@@ -44,7 +43,15 @@ driver = webdriver.Chrome(options=options)
 # GET DOWNLOAD LINK
 driver.get('https://www.microsoft.com/en-us/download/details.aspx?id=104251')
 elements = driver.find_elements(By.PARTIAL_LINK_TEXT,"Download")
-time.sleep(1)
+
+print(len(elements))
+
+for e in elements:
+    print(e.get_attribute('href'))
+
+
+
+
 href = elements[0].get_attribute('href')
 
 driver.get(href)
