@@ -13,7 +13,7 @@ print(f'Running script -> {sys.argv[0]}')
 
 # VARIABLES
 html_src = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/page_source.html')
-output_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/micrososft-all.csv')
+output_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/microsoft-all.csv')
 tmp_txt = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/temp.txt')
 csv_header = 'Make,Series,Model,Win10,Win11'
 
