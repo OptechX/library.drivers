@@ -54,6 +54,8 @@ jobs:
           . ./app/Dell/dell-xps.ps1
         shell: pwsh
   hp:
+    needs:
+      - dell
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -86,6 +88,8 @@ jobs:
           . ./app/HP/hp-all.ps1
         shell: pwsh
   lenovo:
+    needs:
+      - hp
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -138,7 +142,7 @@ jobs:
         shell: pwsh
   microsoft:
     needs:
-      - main
+      - lenovo
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
