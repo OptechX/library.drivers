@@ -59,12 +59,12 @@ jobs:
       #       src/Dell/XPS/output
       #     retention-days: 3
 
-      - name: Archive HP CSV output
-        uses: actions/upload-artifact@v3
-        with:
-          name: HP
-          path: src/HP/output
-          retention-days: 3
+      # - name: Archive HP CSV output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: HP
+      #     path: src/HP/output
+      #     retention-days: 3
 
       # - name: Archive Lenovo CSV output
       #   uses: actions/upload-artifact@v3
@@ -84,3 +84,9 @@ jobs:
       #     . ./app/Dell/dell-optiplex.ps1
       #     . ./app/Dell/dell-xps.ps1
       #   shell: pwsh
+
+      - name: Inject HP
+        run: |
+          . ./app/load-functions.ps1
+          . ./app/Dell/hp-all.ps1
+        shell: pwsh
