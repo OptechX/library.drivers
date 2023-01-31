@@ -90,3 +90,9 @@ jobs:
       #     . ./app/load-functions.ps1
       #     . ./app/HP/hp-all.ps1
       #   shell: pwsh
+
+      - name: Inject Dell
+        run: |
+          . ./app/load-functions.ps1
+          . ./app/Lenovo/lenovo-lenovolaptop.ps1
+        shell: pwsh

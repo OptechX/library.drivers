@@ -1,10 +1,11 @@
 [System.String]$REPO_ROOT = Split-Path -Path $(Split-Path -Path $PSScriptRoot -Parent) -Parent
-[System.String]$MANUFACTURER = "HP"
-<# Note: HP DOES NOT SUPPORT x86 ANYMORE #>
+[System.String]$MANUFACTURER = "Lenovo"
+[System.String]$API_MAKE = "Lenovo Laptop"
+<# Note: Lenovo HAS LIMITED SUPPORT FOR x86 #>
 
 #region Latitude
 # [System.String]$PC_MAKE = ""
-[System.String[]]$CsvFiles = (Get-ChildItem -Path "${REPO_ROOT}/src/${MANUFACTURER}/output" -Filter *.csv -Recurse | Select-Object -ExpandProperty FullName)
+[System.String[]]$CsvFiles = (Get-ChildItem -Path "${REPO_ROOT}/src/${MANUFACTURER}/${API_MAKE}/output" -Filter *.csv -Recurse | Select-Object -ExpandProperty FullName)
 
 foreach ($csv in $CsvFiles)
 {
@@ -16,7 +17,7 @@ foreach ($csv in $CsvFiles)
     foreach ($pc in $PC_LIST)
     {
         # Make,Model,Updated
-        [System.String]$pcMake = $pc.'Series'
+        [System.String]$pcMake = $API_MAKE
         [System.String]$pcModel = $pc.'Model'
         [System.String]$pcUpdated = (Get-Date).ToString('yyyy')
 
