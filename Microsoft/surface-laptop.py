@@ -22,7 +22,7 @@ csv_header = 'Make,Series,Model,Win10,Win11'
 href2 = str()
 
 # CSV OUTPUT SETUP
-model = "Surface Laptop Go 2"
+model = "Surface Laptop Go"
 output_text = "Microsoft,Surface Laptop," + model + ","
 win10 = 'False,'
 win11 = 'False'

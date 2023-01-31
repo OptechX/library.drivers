@@ -14,6 +14,7 @@ import os, sys, time
 print(f'Running script -> {sys.argv[0]}')
 
 # VARIABLES
+url = 'https://www.microsoft.com/en-us/download/details.aspx?id=104251'
 html_src = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/page_source.html')
 output_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/micrososft-all.csv')
 tmp_txt = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/temp.txt')
@@ -44,7 +45,7 @@ options.add_argument('--headless')
 driver = webdriver.Chrome(options=options)
 
 # GET DOWNLOAD LINK
-driver.get('https://www.microsoft.com/en-us/download/details.aspx?id=104251')
+driver.get(url)
 time.sleep(3)
 elements = driver.find_elements(By.PARTIAL_LINK_TEXT,"Download")
 href = elements[0].get_attribute("href")
