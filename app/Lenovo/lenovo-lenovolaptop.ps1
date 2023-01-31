@@ -5,7 +5,7 @@
 
 #region Latitude
 # [System.String]$PC_MAKE = ""
-[System.String[]]$CsvFiles = (Get-ChildItem -Path "${REPO_ROOT}/src/${MANUFACTURER}/${API_MAKE}/output" -Filter *.csv -Recurse | Select-Object -ExpandProperty FullName)
+[System.String[]]$CsvFiles = (Get-ChildItem -Path "${REPO_ROOT}/src/${MANUFACTURER}/Lenovo Laptop/output" -Filter *.csv -Recurse | Select-Object -ExpandProperty FullName)
 
 foreach ($csv in $CsvFiles)
 {
