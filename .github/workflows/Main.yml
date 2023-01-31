@@ -1,12 +1,12 @@
+---
 name: Main Task
-
 on:
   schedule:
     - cron: 14 11 * * 1,4
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
-
+    branches:
+      - main
+  workflow_dispatch: null
 jobs:
   dell:
     runs-on: ubuntu-latest
@@ -15,10 +15,11 @@ jobs:
       - name: Set up Python 3.10.9
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10.9"
+          python-version: 3.10.9
       - name: Install dependencies
-        run: |
+        run: >
           python -m pip install --upgrade pip
+
           if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
       - name: Generate Dell CSV Data
         run: |
@@ -59,10 +60,11 @@ jobs:
       - name: Set up Python 3.10.9
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10.9"
+          python-version: 3.10.9
       - name: Install dependencies
-        run: |
+        run: >
           python -m pip install --upgrade pip
+
           if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
       - name: Generate HP CSV Data
         run: |
@@ -72,7 +74,7 @@ jobs:
             python3 "$f"
           done
         shell: bash
-	  - name: Archive HP CSV output
+      - name: Archive HP CSV output
         uses: actions/upload-artifact@v3
         with:
           name: HP
@@ -90,10 +92,11 @@ jobs:
       - name: Set up Python 3.10.9
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10.9"
+          python-version: 3.10.9
       - name: Install dependencies
-        run: |
+        run: >
           python -m pip install --upgrade pip
+
           if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
       - name: Generate Lenovo CSV Data
         run: |
@@ -103,7 +106,7 @@ jobs:
             python3 "$f"
           done
         shell: bash
-	  - name: Archive Lenovo CSV output
+      - name: Archive Lenovo CSV output
         uses: actions/upload-artifact@v3
         with:
           name: Lenovo
@@ -134,17 +137,19 @@ jobs:
           . ./app/Lenovo/lenovo-thinkstation.ps1
         shell: pwsh
   microsoft:
-    needs: [ "main" ]
+    needs:
+      - main
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.10.9
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10.9"
+          python-version: 3.10.9
       - name: Install dependencies
-        run: |
+        run: >
           python -m pip install --upgrade pip
+
           if [ -f Microsoft/requirements.txt ]; then pip install -r Microsoft/requirements.txt; fi
       - name: Generate Microsoft CSV Data
         run: |
