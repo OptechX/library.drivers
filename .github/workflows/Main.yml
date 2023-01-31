@@ -95,4 +95,5 @@ jobs:
         run: |
           . ./app/load-functions.ps1
           . ./app/Lenovo/lenovo-lenovolaptop.ps1
+          . ./app/Lenovo/lenovo-thinkcentre.ps1
         shell: pwsh
