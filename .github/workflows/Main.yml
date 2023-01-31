@@ -155,7 +155,7 @@ jobs:
         with:
           name: Microsoft_CSV
           path: |
-            Microsoft
+            Microsoft/output/microsoft-all.csv
           retention-days: 3
 
       - name: Inject Microsoft
