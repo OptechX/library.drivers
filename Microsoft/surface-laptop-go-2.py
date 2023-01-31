@@ -18,6 +18,7 @@ html_src = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/page
 output_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/micrososft-all.csv')
 tmp_txt = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/temp.txt')
 csv_header = 'Make,Series,Model,Win10,Win11'
+href2 = str()
 
 # CSV OUTPUT SETUP
 model = "Surface Laptop Go 2"
@@ -46,6 +47,9 @@ driver = webdriver.Chrome(options=options)
 driver.get('https://www.microsoft.com/en-us/download/details.aspx?id=104251')
 time.sleep(3)
 elements = driver.find_elements(By.PARTIAL_LINK_TEXT,"Download")
+
+for i in elements:
+    print(f'Found this -> {i.get_attribute("href")}')
 
 href = elements[0].get_attribute("href")
 
