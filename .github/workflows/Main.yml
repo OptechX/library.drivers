@@ -22,23 +22,23 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
 
-      # - name: Generate Dell CSV Data
-      #   run: |
-      #     mFiles=`find src/Dell -name "*.py"`
-      #     for f in ${mFiles[@]}
-      #     do
-      #       python3 "$f"
-      #     done
-      #   shell: bash
+      - name: Generate Dell CSV Data
+        run: |
+          mFiles=`find src/Dell -name "*.py"`
+          for f in ${mFiles[@]}
+          do
+            python3 "$f"
+          done
+        shell: bash
 
-      # - name: Generate HP CSV Data
-      #   run: |
-      #     mFiles=`find src/HP -name "*.py"`
-      #     for f in ${mFiles[@]}
-      #     do
-      #       python3 "$f"
-      #     done
-      #   shell: bash
+      - name: Generate HP CSV Data
+        run: |
+          mFiles=`find src/HP -name "*.py"`
+          for f in ${mFiles[@]}
+          do
+            python3 "$f"
+          done
+        shell: bash
       
       - name: Generate Lenovo CSV Data
         run: |
@@ -66,34 +66,35 @@ jobs:
       #     path: src/HP/output
       #     retention-days: 3
 
-      - name: Archive Lenovo CSV output
-        uses: actions/upload-artifact@v3
-        with:
-          name: Lenovo
-          path: |
-            src/Lenovo/LenovoLaptop/output
-            src/Lenovo/ThinkCentre/output
-            src/Lenovo/ThinkPad/output
-            src/Lenovo/ThinkStation/output
-          retention-days: 3
-
-      # - name: Inject Dell
-      #   run: |
-      #     . ./app/load-functions.ps1
-      #     . ./app/Dell/dell-latitude.ps1
-      #     . ./app/Dell/dell-optiplex.ps1
-      #     . ./app/Dell/dell-xps.ps1
-      #   shell: pwsh
-
-      # - name: Inject HP
-      #   run: |
-      #     . ./app/load-functions.ps1
-      #     . ./app/HP/hp-all.ps1
-      #   shell: pwsh
+      # - name: Archive Lenovo CSV output
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: Lenovo
+      #     path: |
+      #       src/Lenovo/LenovoLaptop/output
+      #       src/Lenovo/ThinkCentre/output
+      #       src/Lenovo/ThinkPad/output
+      #       src/Lenovo/ThinkStation/output
+      #     retention-days: 3
 
       - name: Inject Dell
         run: |
           . ./app/load-functions.ps1
+          . ./app/Dell/dell-latitude.ps1
+          . ./app/Dell/dell-optiplex.ps1
+          . ./app/Dell/dell-xps.ps1
+        shell: pwsh
+
+      - name: Inject HP
+        run: |
+          . ./app/load-functions.ps1
+          . ./app/HP/hp-all.ps1
+        shell: pwsh
+
+      - name: Inject Lenovo
+        run: |
+          . ./app/load-functions.ps1
           . ./app/Lenovo/lenovo-lenovolaptop.ps1
           . ./app/Lenovo/lenovo-thinkcentre.ps1
+          . ./app/Lenovo/lenovo-thinkpad.ps1
         shell: pwsh

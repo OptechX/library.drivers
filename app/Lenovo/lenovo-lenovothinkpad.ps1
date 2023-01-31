@@ -1,11 +1,11 @@
 [System.String]$REPO_ROOT = Split-Path -Path $(Split-Path -Path $PSScriptRoot -Parent) -Parent
 [System.String]$MANUFACTURER = "Lenovo"
-[System.String]$API_MAKE = "Lenovo Laptop"
+[System.String]$API_MAKE = "ThinkPad"
 <# Note: Lenovo HAS LIMITED SUPPORT FOR x86 #>
 
 #region Latitude
 # [System.String]$PC_MAKE = ""
-[System.String[]]$CsvFiles = (Get-ChildItem -Path "${REPO_ROOT}/src/${MANUFACTURER}/LenovoLaptop/output" -Filter *.csv -Recurse | Select-Object -ExpandProperty FullName)
+[System.String[]]$CsvFiles = (Get-ChildItem -Path "${REPO_ROOT}/src/${MANUFACTURER}/${API_MAKE}/output" -Filter *.csv -Recurse | Select-Object -ExpandProperty FullName)
 
 foreach ($csv in $CsvFiles)
 {

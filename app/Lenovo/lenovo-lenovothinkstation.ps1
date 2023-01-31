@@ -1,6 +1,6 @@
 [System.String]$REPO_ROOT = Split-Path -Path $(Split-Path -Path $PSScriptRoot -Parent) -Parent
 [System.String]$MANUFACTURER = "Lenovo"
-[System.String]$API_MAKE = "Lenovo Laptop"
+[System.String]$API_MAKE = "ThinkStation"
 <# Note: Lenovo HAS LIMITED SUPPORT FOR x86 #>
 
 #region Latitude
