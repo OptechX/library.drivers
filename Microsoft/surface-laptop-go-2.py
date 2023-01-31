@@ -42,14 +42,16 @@ driver = webdriver.Chrome(options=options)
 
 # GET DOWNLOAD LINK
 driver.get('https://www.microsoft.com/en-us/download/details.aspx?id=104251')
+import time
+time.sleep(3)
 elements = driver.find_elements(By.PARTIAL_LINK_TEXT,"Download")
-
+time.sleep(2)
 print(len(elements))
 
 for e in elements:
     print(e.get_attribute('href'))
 
-
+time.sleep(7)
 
 
 href = elements[0].get_attribute('href')
