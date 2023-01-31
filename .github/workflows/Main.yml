@@ -77,11 +77,21 @@ jobs:
       #       src/Lenovo/ThinkStation/output
       #     retention-days: 3
 
-      - name: Inject Dell
+      - name: Inject Dell Latitude
         run: |
           . ./app/load-functions.ps1
           . ./app/Dell/dell-latitude.ps1
+        shell: pwsh
+
+      - name: Inject Dell OptiPlex
+        run: |
+          . ./app/load-functions.ps1
           . ./app/Dell/dell-optiplex.ps1
+        shell: pwsh
+
+      - name: Inject Dell XPS
+        run: |
+          . ./app/load-functions.ps1
           . ./app/Dell/dell-xps.ps1
         shell: pwsh
 
@@ -100,19 +110,19 @@ jobs:
       - name: Inject Lenovo ThinkCentre
         run: |
           . ./app/load-functions.ps1
-          . ./app/Lenovo/lenovo-lenovothinkcentre.ps1
+          . ./app/Lenovo/lenovo-thinkcentre.ps1
         shell: pwsh
 
       - name: Inject Lenovo ThinkPad
         run: |
           . ./app/load-functions.ps1
-          . ./app/Lenovo/lenovo-lenovothinkpad.ps1
+          . ./app/Lenovo/lenovo-thinkpad.ps1
         shell: pwsh
 
       - name: Inject Lenovo ThinkStation
         run: |
           . ./app/load-functions.ps1
-          . ./app/Lenovo/lenovo-lenovothinkstation.ps1
+          . ./app/Lenovo/lenovo-thinkstation.ps1
         shell: pwsh
 
 
