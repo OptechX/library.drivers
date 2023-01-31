@@ -22,14 +22,14 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
 
-      # - name: Generate Dell CSV Data
-      #   run: |
-      #     mFiles=`find src/Dell -name "*.py"`
-      #     for f in ${mFiles[@]}
-      #     do
-      #       python3 "$f"
-      #     done
-      #   shell: bash
+      - name: Generate Dell CSV Data
+        run: |
+          mFiles=`find src/Dell -name "*.py"`
+          for f in ${mFiles[@]}
+          do
+            python3 "$f"
+          done
+        shell: bash
 
       - name: Generate HP CSV Data
         run: |
@@ -77,13 +77,13 @@ jobs:
       #       src/Lenovo/ThinkStation/output
       #     retention-days: 3
 
-      # - name: Inject Dell
-      #   run: |
-      #     . ./app/load-functions.ps1
-      #     . ./app/Dell/dell-latitude.ps1
-      #     . ./app/Dell/dell-optiplex.ps1
-      #     . ./app/Dell/dell-xps.ps1
-      #   shell: pwsh
+      - name: Inject Dell
+        run: |
+          . ./app/load-functions.ps1
+          . ./app/Dell/dell-latitude.ps1
+          . ./app/Dell/dell-optiplex.ps1
+          . ./app/Dell/dell-xps.ps1
+        shell: pwsh
 
       - name: Inject HP
         run: |
