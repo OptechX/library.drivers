@@ -91,10 +91,31 @@ jobs:
           . ./app/HP/hp-all.ps1
         shell: pwsh
 
-      - name: Inject Lenovo
+      - name: Inject Lenovo Laptop
         run: |
           . ./app/load-functions.ps1
           . ./app/Lenovo/lenovo-lenovolaptop.ps1
-          . ./app/Lenovo/lenovo-thinkcentre.ps1
-          . ./app/Lenovo/lenovo-thinkpad.ps1
         shell: pwsh
+      
+      - name: Inject Lenovo ThinkCentre
+        run: |
+          . ./app/load-functions.ps1
+          . ./app/Lenovo/lenovo-lenovothinkcentre.ps1
+        shell: pwsh
+
+      - name: Inject Lenovo ThinkPad
+        run: |
+          . ./app/load-functions.ps1
+          . ./app/Lenovo/lenovo-lenovothinkpad.ps1
+        shell: pwsh
+
+      - name: Inject Lenovo ThinkStation
+        run: |
+          . ./app/load-functions.ps1
+          . ./app/Lenovo/lenovo-lenovothinkstation.ps1
+        shell: pwsh
+
+
+          
+          
+          
