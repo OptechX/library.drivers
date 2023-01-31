@@ -88,5 +88,5 @@ jobs:
       - name: Inject HP
         run: |
           . ./app/load-functions.ps1
-          . ./app/Dell/hp-all.ps1
+          . ./app/HP/hp-all.ps1
         shell: pwsh
