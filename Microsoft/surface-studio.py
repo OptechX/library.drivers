@@ -2,20 +2,25 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
+def document_initialised(driver):
+    return driver.execute_script("return initialised")
 
 from bs4 import BeautifulSoup
 
 from re import search
-import os
-import sys
+import os, sys, time
 
 print(f'Running script -> {sys.argv[0]}')
 
 # VARIABLES
+url = 'https://www.microsoft.com/en-us/download/details.aspx?id=54311'
 html_src = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/page_source.html')
 output_csv = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/microsoft-all.csv')
 tmp_txt = os.path.join(os.path.dirname(os.path.realpath(__file__)),'output/temp.txt')
 csv_header = 'Make,Series,Model,Win10,Win11'
+href2 = str()
+href3 = str()
 
 # CSV OUTPUT SETUP
 model = "Surface Studio"
@@ -38,25 +43,34 @@ except OSError:
 # SETUP CHROME WEBDRIVER (SILENT)
 options = webdriver.ChromeOptions() 
 options.add_argument('--headless')
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+chrome_prefs = {}
+options.experimental_options["prefs"] = chrome_prefs
+chrome_prefs["profile.default_content_settings"] = {"images": 2}
 driver = webdriver.Chrome(options=options)
 
 # GET DOWNLOAD LINK
-driver.get('https://www.microsoft.com/en-us/download/details.aspx?id=54311')
+driver.get(url)
+time.sleep(3)
 elements = driver.find_elements(By.PARTIAL_LINK_TEXT,"Download")
-
-href = elements[0].get_attribute('href')
-
-driver.get(href)
+for i in elements:
+    if (search('confirmation.aspx', i.get_attribute('href'))):
+        href2 = i.get_attribute('href')
+driver.get(href2)
+time.sleep(3)
 elements = driver.find_elements(By.PARTIAL_LINK_TEXT,"manually")
+for i in elements:
+    if (search('/Surface', i.get_attribute('href'))):
+        href3 = i.get_attribute('href')
 
-href = elements[0].get_attribute('href')
-
+# QUIT CHROME DRIVER
 driver.quit()
 
-
-if search('Win10', href):
+# DETERMINE VALUES
+if search('Win10', href3):
     win10 = 'True,'
-if search('Win11', href):
+if search('Win11', href3):
     win11 = 'True'
 
 # SET OUTPUT
