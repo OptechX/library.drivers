@@ -2,6 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
+def document_initialised(driver):
+    return driver.execute_script("return initialised")
 
 from bs4 import BeautifulSoup
 
@@ -43,26 +46,24 @@ driver = webdriver.Chrome(options=options)
 driver.get('https://www.microsoft.com/en-us/download/details.aspx?id=104251')
 time.sleep(3)
 elements = driver.find_elements(By.PARTIAL_LINK_TEXT,"Download")
-time.sleep(2)
 
-url2 = elements[0].get_attribute("href")
+href = elements[0].get_attribute("href")
 
-driver.get(url2)
+driver.get(href)
 elements2 = driver.find_elements(By.PARTIAL_LINK_TEXT,"manually")
 time.sleep(2)
 
 for i in elements2:
-    print(i.get_attribute('href'))
+    if (search('SurfaceLaptopGo', i.get_attribute('href'))):
+        href2 = i.get_attribute('href')
 
-
-href = elements2[0].get_attribute('href')
 
 driver.quit()
 
 
-if search('Win10', href):
+if search('Win10', href2):
     win10 = 'True,'
-if search('Win11', href):
+if search('Win11', href2):
     win11 = 'True'
 
 # SET OUTPUT
