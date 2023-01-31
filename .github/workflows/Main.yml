@@ -126,7 +126,6 @@ jobs:
   #       shell: pwsh
 
   microsoft:
-    needs: [ "main" ]
     runs-on: ubuntu-latest
 
     steps:
