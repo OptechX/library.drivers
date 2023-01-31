@@ -6,6 +6,7 @@ _old
 clean.ps1
 bs4/.venv
 bs4/Dell/output/*.csv
+.venv
 
 # User-specific files
 *.rsuser
