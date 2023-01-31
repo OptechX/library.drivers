@@ -45,15 +45,17 @@ time.sleep(3)
 elements = driver.find_elements(By.PARTIAL_LINK_TEXT,"Download")
 time.sleep(2)
 
-print(f'The URL is -> {elements[0].get_attribute("href")}')
+url2 = elements[0].get_attribute("href")
+
+driver.get(url2)
+elements2 = driver.find_elements(By.PARTIAL_LINK_TEXT,"manually")
+time.sleep(2)
+
+for i in elements2:
+    print(i.get_attribute('href'))
 
 
-href = elements[0].get_attribute('href')
-
-driver.get(href)
-elements = driver.find_elements(By.PARTIAL_LINK_TEXT,"manually")
-
-href = elements[0].get_attribute('href')
+href = elements2[0].get_attribute('href')
 
 driver.quit()
 
