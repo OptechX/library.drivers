@@ -1,0 +1,17 @@
+name: DEMO
+on:
+  workflow_dispatch:
+
+env:
+  API_PROD_URI: "fish"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: SCCM main tasks
+        shell: pwsh
+        run: Write-Output $env:API_PROD_URI
