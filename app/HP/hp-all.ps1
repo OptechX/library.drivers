@@ -28,26 +28,101 @@ foreach ($csv in $CsvFiles)
         # UPDATED/PRODUCTION YEAR
         [System.String]$UpdatedYear = $pcUpdated
 
-        # PAYLOAD
-        $Payload = [DriversCorePayload]::new()
-        $Payload.id = 0
-        $Payload.uuid = [System.Guid]::NewGuid().ToString()
-        $Payload.uid = $UID
-        $Payload.originalEquipmentManufacturer = $MANUFACTURER
-        $Payload.make = $pcMake
-        $Payload.model = $pcModel
-        $Payload.productionYear = [Int64]$UpdatedYear
-        $Payload.cpuArch = @("x64")
-        $Payload.windowsOS = @($windowsOS)
-
         Write-Output "About to run test on: ${UID}"
 
-        # [System.String]$API_BASE_URI = 'https://engine.api.prod.optechx-data.com'
-        
-        # TRIGGER UPDATE
-        Update-ApiDriversCore -Payload $Payload
+        # CONFIG WINDOWS OS
+        if ($pc.'Win7' -like 'Yes')
+        {
+            $windowsOS = @("Windows 7")
 
-        Start-Sleep -Milliseconds 50
+            # PAYLOAD
+            $Payload = [DriversCorePayload]::new()
+            $Payload.id = 0
+            $Payload.uuid = [System.Guid]::NewGuid().ToString()
+            $Payload.uid = $UID
+            $Payload.originalEquipmentManufacturer = $MANUFACTURER
+            $Payload.make = $pcMake
+            $Payload.model = $pcModel
+            $Payload.productionYear = [Int64]$UpdatedYear
+            $Payload.cpuArch = @("x64")
+            $Payload.windowsOS = @($windowsOS)
+
+            # [System.String]$API_BASE_URI = 'https://engine.api.prod.optechx-data.com'
+            
+            # TRIGGER UPDATE
+            Update-ApiDriversCore -Payload $Payload
+
+            Start-Sleep -Milliseconds 50
+        }
+        if ($pc.'Win8.1' -like 'Yes')
+        {
+            $windowsOS = @("Windows 8.1")
+            
+            # PAYLOAD
+            $Payload = [DriversCorePayload]::new()
+            $Payload.id = 0
+            $Payload.uuid = [System.Guid]::NewGuid().ToString()
+            $Payload.uid = $UID
+            $Payload.originalEquipmentManufacturer = $MANUFACTURER
+            $Payload.make = $pcMake
+            $Payload.model = $pcModel
+            $Payload.productionYear = [Int64]$UpdatedYear
+            $Payload.cpuArch = @("x64")
+            $Payload.windowsOS = @($windowsOS)
+
+            # [System.String]$API_BASE_URI = 'https://engine.api.prod.optechx-data.com'
+            
+            # TRIGGER UPDATE
+            Update-ApiDriversCore -Payload $Payload
+
+            Start-Sleep -Milliseconds 50
+        }
+        if ($pc.'Win10' -like 'Yes')
+        {
+            $windowsOS = @("Windows 10")
+            
+            # PAYLOAD
+            $Payload = [DriversCorePayload]::new()
+            $Payload.id = 0
+            $Payload.uuid = [System.Guid]::NewGuid().ToString()
+            $Payload.uid = $UID
+            $Payload.originalEquipmentManufacturer = $MANUFACTURER
+            $Payload.make = $pcMake
+            $Payload.model = $pcModel
+            $Payload.productionYear = [Int64]$UpdatedYear
+            $Payload.cpuArch = @("x64")
+            $Payload.windowsOS = @($windowsOS)
+
+            # [System.String]$API_BASE_URI = 'https://engine.api.prod.optechx-data.com'
+            
+            # TRIGGER UPDATE
+            Update-ApiDriversCore -Payload $Payload
+
+            Start-Sleep -Milliseconds 50
+        }
+        if ($pc.'Win11' -like 'Yes')
+        {
+            $windowsOS = @("Windows 11")
+            
+            # PAYLOAD
+            $Payload = [DriversCorePayload]::new()
+            $Payload.id = 0
+            $Payload.uuid = [System.Guid]::NewGuid().ToString()
+            $Payload.uid = $UID
+            $Payload.originalEquipmentManufacturer = $MANUFACTURER
+            $Payload.make = $pcMake
+            $Payload.model = $pcModel
+            $Payload.productionYear = [Int64]$UpdatedYear
+            $Payload.cpuArch = @("x64")
+            $Payload.windowsOS = @($windowsOS)
+
+            # [System.String]$API_BASE_URI = 'https://engine.api.prod.optechx-data.com'
+            
+            # TRIGGER UPDATE
+            Update-ApiDriversCore -Payload $Payload
+
+            Start-Sleep -Milliseconds 50
+        }
     }
 }
 #endregion
