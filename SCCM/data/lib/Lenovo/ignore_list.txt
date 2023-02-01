@@ -1,4 +1,0 @@
-Drivers
-BIOS
-Software and Utilities
-Lenovo Tablet 10
