@@ -1,0 +1,44 @@
+version: 2.1
+
+orbs:
+  win: circleci/windows@5.0
+
+jobs:
+
+  say-hello:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World!"
+
+  microsoft:
+    executor: win/server-2022
+    steps:
+      - checkout
+      - run:
+          name: Circle-CI Test Script
+          no_output_timeout: "10m"
+          command: ./tests/circleci-test.ps1
+      # - run:
+      #     name: Setup CircleCI
+      #     no_output_timeout: "10m"
+      #     command: ./Microsoft/data/circleci-setup.ps1
+      # - run:
+      #     name: Install Selenium
+      #     no_output_timeout: "10m"
+      #     command: Install-Module Selenium -Repository PSGallery -Force
+      # - run:
+      #     name: Get some info
+      #     no_output_timeout: "10m"
+      #     command: pwsh -File ./Microsoft/main.ps1
+          
+workflows:
+  # say-hello-workflow:
+  #   jobs:
+  #     - say-hello
+  my-workflow:
+    jobs:
+      - microsoft
