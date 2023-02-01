@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Selenium Firefox
           no_output_timeout: "10m"
-          command: ./circleci-test.ps1
+          command: ./tests/circleci-test.ps1
       # - run:
       #     name: Setup CircleCI
       #     no_output_timeout: "10m"
