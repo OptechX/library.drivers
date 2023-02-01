@@ -84,7 +84,7 @@ jobs:
       - name: Inject HP
         run: |
           . ./app/lib/load-functions.ps1
-          . ./app/HP/hp-all.ps1
+          . ./app/ingress-scripts/ingress-hp-all.ps1
         shell: pwsh
   lenovo:
     needs:
