@@ -22,7 +22,7 @@ if not os.path.exists(tmp_dir):
 
 # html file variables
 html_src = f'{tmp_dir}/page_source.html'
-output_csv = f'{output_dir}/lenovo-lenovothinkstation.csv'
+output_csv = f'{output_dir}/lenovo-thinkstation.csv'
 tmp_txt = f'{tmp_dir}/temp.txt'
 csv_header = 'Model,Win7,Win8.1,Win10,Win11'
 csv_header = 'Model,Win7,Win8.1,Win10,Win11'
