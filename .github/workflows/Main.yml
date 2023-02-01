@@ -20,10 +20,10 @@ jobs:
         run: >
           python -m pip install --upgrade pip
 
-          if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
+          if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate Dell CSV Data
         run: |
-          mFiles=`find src/Dell -name "*.py"`
+          mFiles=`find app -name "dell*.py"`
           for f in ${mFiles[@]}
           do
             python3 "$f"
@@ -32,26 +32,23 @@ jobs:
       - name: Archive Dell CSV output
         uses: actions/upload-artifact@v3
         with:
-          name: Dell
-          path: |
-            src/Dell/Latitude/output
-            src/Dell/OptiPlex/output
-            src/Dell/XPS/output
+          name: Dell_CSV
+          path: app/data/Dell
           retention-days: 3
       - name: Inject Dell Latitude
         run: |
-          . ./app/load-functions.ps1
-          . ./app/Dell/dell-latitude.ps1
+          . ./app/lib/load-functions.ps1
+          . ./app/ingress-scripts/ingress-dell-latitude.ps1
         shell: pwsh
       - name: Inject Dell OptiPlex
         run: |
-          . ./app/load-functions.ps1
-          . ./app/Dell/dell-optiplex.ps1
+          . ./app/lib/load-functions.ps1
+          . ./app/ingress-scripts/ingress-dell-optiplex.ps1
         shell: pwsh
       - name: Inject Dell XPS
         run: |
-          . ./app/load-functions.ps1
-          . ./app/Dell/dell-xps.ps1
+          . ./app/lib/load-functions.ps1
+          . ./app/ingress-scripts/ingress-dell-xps.ps1
         shell: pwsh
   hp:
     needs:
@@ -67,10 +64,10 @@ jobs:
         run: >
           python -m pip install --upgrade pip
 
-          if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
+          if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate HP CSV Data
         run: |
-          mFiles=`find src/HP -name "*.py"`
+          mFiles=`find app -name "hp*.py"`
           for f in ${mFiles[@]}
           do
             python3 "$f"
@@ -79,12 +76,12 @@ jobs:
       - name: Archive HP CSV output
         uses: actions/upload-artifact@v3
         with:
-          name: HP
-          path: src/HP/output
+          name: HP_CSV
+          path: app/data/HP
           retention-days: 3
       - name: Inject HP
         run: |
-          . ./app/load-functions.ps1
+          . ./app/lib/load-functions.ps1
           . ./app/HP/hp-all.ps1
         shell: pwsh
   lenovo:
@@ -101,10 +98,10 @@ jobs:
         run: >
           python -m pip install --upgrade pip
 
-          if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
+          if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate Lenovo CSV Data
         run: |
-          mFiles=`find src/Lenovo -name "*.py"`
+          mFiles=`find app -name "lenovo*.py"`
           for f in ${mFiles[@]}
           do
             python3 "$f"
@@ -113,32 +110,28 @@ jobs:
       - name: Archive Lenovo CSV output
         uses: actions/upload-artifact@v3
         with:
-          name: Lenovo
-          path: |
-            src/Lenovo/LenovoLaptop/output
-            src/Lenovo/ThinkCentre/output
-            src/Lenovo/ThinkPad/output
-            src/Lenovo/ThinkStation/output
+          name: Lenovo_CSV
+          path: app/data/Lenovo
           retention-days: 3
       - name: Inject Lenovo Laptop
         run: |
-          . ./app/load-functions.ps1
-          . ./app/Lenovo/lenovo-lenovolaptop.ps1
+          . ./app/lib/load-functions.ps1
+          . ./app/ingress-scripts/ingress-lenovo-lenovolaptop.ps1
         shell: pwsh
       - name: Inject Lenovo ThinkCentre
         run: |
-          . ./app/load-functions.ps1
-          . ./app/Lenovo/lenovo-thinkcentre.ps1
+          . ./app/lib/load-functions.ps1
+          . ./app/ingress-scripts/ingress-lenovo-thinkcentre.ps1
         shell: pwsh
       - name: Inject Lenovo ThinkPad
         run: |
-          . ./app/load-functions.ps1
-          . ./app/Lenovo/lenovo-thinkpad.ps1
+          . ./app/lib/load-functions.ps1
+          . ./app/ingress-scripts/ingress-lenovo-thinkpad.ps1
         shell: pwsh
       - name: Inject Lenovo ThinkStation
         run: |
-          . ./app/load-functions.ps1
-          . ./app/Lenovo/lenovo-thinkstation.ps1
+          . ./app/lib/load-functions.ps1
+          . ./app/ingress-scripts/ingress-lenovo-thinkstation.ps1
         shell: pwsh
   microsoft:
     needs:
@@ -154,10 +147,10 @@ jobs:
         run: >
           python -m pip install --upgrade pip
 
-          if [ -f Microsoft/requirements.txt ]; then pip install -r Microsoft/requirements.txt; fi
+          if [ -f app/lib/microsoft/requirements.txt ]; then pip install -r app/lib/microsoft/requirements.txt; fi
       - name: Generate Microsoft CSV Data
         run: |
-          mFiles=`find Microsoft -name "*.py"`
+          mFiles=`find app -name "surface*.py"`
           for f in ${mFiles[@]}
           do
             python3 "$f"
@@ -167,11 +160,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Microsoft_CSV
-          path: |
-            Microsoft/output/microsoft-all.csv
+          path: app/data/Microsoft
           retention-days: 3
       - name: Inject Microsoft
         run: |
-          . ./app/load-functions.ps1
-          . ./Microsoft/microsoft-all.ps1
+          . ./app/lib/load-functions.ps1
+          . ./app/ingress-scripts/ingress-microsoft-all.ps1
         shell: pwsh
