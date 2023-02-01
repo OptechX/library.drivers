@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Selenium Firefox
+          name: Circle-CI Test Script
           no_output_timeout: "10m"
           command: ./tests/circleci-test.ps1
       # - run:
