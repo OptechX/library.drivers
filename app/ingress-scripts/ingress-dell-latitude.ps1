@@ -18,34 +18,39 @@ foreach ($csv in $CsvFiles)
         # Make,Model,Updated
         [System.String]$pcMake = $pc.'Make'
         [System.String]$pcModel = $pc.'Model'
-        [System.String]$pcUpdated = $pc.'Updated'
+        try {
+            [System.DateTime]$pcUpdated = [DateTime]::ParseExact($pc.'Updated', "MM/dd/yyyy", [System.Globalization.CultureInfo]::InvariantCulture)
 
-        # UID
-        $pattern = '[^a-zA-Z_0-9:]'
-        $UID = "${MANUFACTURER}::${pcMake}::${pcModel}" -replace ' ','_'
-        $UID = $UID -replace $pattern, ''
-        
-        # UPDATED/PRODUCTION YEAR
-        [System.String]$UpdatedYear = $pcUpdated.Split('/')[-1]
+            # UID
+            $pattern = '[^a-zA-Z_0-9:]'
+            $UID = "${MANUFACTURER}::${pcMake}::${pcModel}" -replace ' ','_'
+            $UID = $UID -replace $pattern, ''
+            
+            # UPDATED/PRODUCTION YEAR
+            # [System.String]$UpdatedYear = $pcUpdated.Split('/')[-1]
 
-        # PAYLOAD
-        $Payload = [DriversCorePayload]::new()
-        $Payload.id = 0
-        $Payload.uuid = [System.Guid]::NewGuid().ToString()
-        $Payload.uid = $UID
-        $Payload.originalEquipmentManufacturer = $MANUFACTURER
-        $Payload.make = $pcMake
-        $Payload.model = $pcModel
-        $Payload.productionYear = [Int64]$UpdatedYear
-        $Payload.cpuArch = @("x64")
-        $Payload.windowsOS = @($windowsOS)
+            # PAYLOAD
+            $Payload = [DriversCorePayload]::new()
+            $Payload.id = 0
+            $Payload.uid = $UID
+            $Payload.oem = $MANUFACTURER
+            $Payload.make = $pcMake
+            $Payload.model = $pcModel
+            $Payload.lastUpdated = $pcUpdated
+            $Payload.supportedWinRelease = @($windowsOS)
 
-        Write-Output "About to run test on: ${UID}"
-        
-        # TRIGGER UPDATE
-        Update-ApiDriversCore -Payload $Payload
+            Write-Output "About to run test on: ${UID}"
+            
+            # TRIGGER UPDATE
+            Update-ApiDriversCore -Payload $Payload
 
-        Start-Sleep -Milliseconds 50
+            Start-Sleep -Milliseconds 50
+
+            $Payload
+        }
+        catch {
+            <# DO NOTHING, DATA IS CRAP #>
+        }   
     }
 }
 #endregion

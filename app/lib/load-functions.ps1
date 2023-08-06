@@ -1,13 +1,11 @@
 class DriversCorePayload {
-    [System.Int64]$id = 0
-    [System.Guid]$uuid = [System.Guid]::NewGuid().ToString()
+    [Int]$id = 0
     [System.String]$uid
-    [System.String]$originalEquipmentManufacturer
+    [System.String]$oem
     [System.String]$make
     [System.String]$model
-    [System.Int64]$productionYear
-    [System.String[]]$cpuArch
-    [System.String[]]$windowsOS
+    [System.DateTime]$lastUpdated
+    [System.String[]]$supportedWinRelease
 }
 
 function Update-ApiDriversCore {
@@ -21,7 +19,7 @@ function Update-ApiDriversCore {
 
     # find if object exists
     try {
-        $API_RESPONSE = Invoke-WebRequest -Uri "${API_BASE_URI}/v1/DriversCore/uid/${UID}" -Method Get -UseBasicParsing -SkipHttpErrorCheck -ErrorAction Stop
+        $API_RESPONSE = Invoke-WebRequest -Uri "${API_BASE_URI}/api/DriverCore/uid/${UID}" -Method Get -UseBasicParsing -SkipHttpErrorCheck -ErrorAction Stop
         
         switch ($API_RESPONSE.StatusCode)
         {
@@ -29,7 +27,7 @@ function Update-ApiDriversCore {
             404 {
                 try {
                     $json = $Payload | ConvertTo-Json
-                    Invoke-RestMethod -Uri "${API_BASE_URI}/v1/DriversCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json"
+                    Invoke-RestMethod -Uri "${API_BASE_URI}/api/DriverCore" -Method Post -UseBasicParsing -Body $json -ContentType "application/json"
                 }
                 catch {
                     Write-Output "MAIN LOGIC 404 ERROR"
@@ -42,35 +40,23 @@ function Update-ApiDriversCore {
             # 200 == object found
             200 {
                 Write-Output "200 == object found"
-                $MATCHED_DATA
-                $Payload
 
                 [DriversCorePayload]$MATCHED_DATA = $API_RESPONSE.Content | ConvertFrom-Json
 
                 [System.Boolean]$INVOKE_UPDATE = $false
-
-                # update CpuArch (if required)
-                [System.Collections.ArrayList]$tmpArrayList = [System.String[]]$MATCHED_DATA.cpuArch
-                if ($Payload.cpuArch -notin $tmpArrayList)
-                {
-                    Write-Output "cpuArch not matched"
-                    $tmpArrayList.Add($Payload.cpuArch)
-                    $Payload.cpuArch = $tmpArrayList.ToArray()
-                    $INVOKE_UPDATE = $true
-                }
                 
-                # update WindowsOS (if required)
-                [System.Collections.ArrayList]$tmpArrayList = [System.String[]]$MATCHED_DATA.windowsOS
-                if ($Payload.windowsOS -notin $tmpArrayList)
+                # update supportedWinRelease (if required)
+                [System.Collections.ArrayList]$tmpArrayList = [System.String[]]$MATCHED_DATA.supportedWinRelease
+                if ($Payload.supportedWinRelease -notin $tmpArrayList)
                 {
-                    Write-Output "windowsOS not matched"
-                    $tmpArrayList.Add($Payload.windowsOS)
-                    $Payload.windowsOS = $tmpArrayList.ToArray()
+                    Write-Output "supportedWinRelease not matched"
+                    $tmpArrayList.Add($Payload.supportedWinRelease)
+                    $Payload.supportedWinRelease = $tmpArrayList.ToArray()
                     $INVOKE_UPDATE = $true
                 }
                 
                 # update entry date
-                if ([int]$Payload.productionYear -gt [int]$MATCHED_DATA.productionYear)
+                if ([DateTime]$Payload.productionYear -gt [DateTime]$MATCHED_DATA.productionYear)
                 {
                     Write-Output "productionYear not matched"
                     $INVOKE_UPDATE = $true
@@ -80,7 +66,6 @@ function Update-ApiDriversCore {
                 {
                     # retain existing values required
                     $Payload.id = $MATCHED_DATA.id
-                    $Payload.uuid = $MATCHED_DATA.uuid
                     
                     # create JSON object
                     $json = $Payload | ConvertTo-Json
@@ -90,11 +75,11 @@ function Update-ApiDriversCore {
                     
                     # update API endpoint with new data
                     try {
-                        Write-Output "Update URI: ${API_BASE_URI}/v1/DriversCore/$($Payload.id)"
-                        Invoke-RestMethod -Uri "${API_BASE_URI}/v1/DriversCore/$($Payload.id)" -Method Put -UseBasicParsing -Body $json -Headers @{"Content-Type"="application/json"} -ErrorAction Stop
+                        Write-Output "Update URI: ${API_BASE_URI}/api/DriverCore/$($Payload.id)"
+                        Invoke-RestMethod -Uri "${API_BASE_URI}/api/DriverCore/$($Payload.id)" -Method Put -UseBasicParsing -Body $json -Headers @{"Content-Type"="application/json"} -ErrorAction Stop
                     } catch {
                         Write-Output "match in matched_data error 2"
-                        "${API_BASE_URI}/v1/DriversCore/$($json.id)"
+                        "${API_BASE_URI}/api/DriverCore/$($json.id)"
                         $json
                     }
                 }

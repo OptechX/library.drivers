@@ -1,12 +1,10 @@
-name: Main Task
+name: DEV Task
 
 on:
-  schedule:
-    - cron: 14 11 * * 1,4
   pull_request:
     branches:
-      - main
-  workflow_dispatch: null
+      - dev
+  workflow_dispatch:
 env:
   API_BASE_URI: https://engine.api.prod.optechx-data.com
 
