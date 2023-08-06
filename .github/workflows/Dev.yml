@@ -37,22 +37,7 @@ jobs:
         with:
           name: Dell_CSV
           path: app/data/Dell
-          retention-days: 3
-      - name: Inject Dell Latitude
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-dell-latitude.ps1
-        shell: pwsh
-      - name: Inject Dell OptiPlex
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-dell-optiplex.ps1
-        shell: pwsh
-      - name: Inject Dell XPS
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-dell-xps.ps1
-        shell: pwsh
+          retention-days: 1
 
   hp:
     needs:
