@@ -53,13 +53,6 @@ jobs:
         run: python -m pip install --upgrade pip
       - name: Install dependencies
         run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
-      - name: Generate Dell CSV Data
-        run: |
-          mFiles=`find app -name "dell*.py"`
-          for f in ${mFiles[@]}
-          do
-            python3 "$f"
-          done
       - name: Generate HP CSV Data
         run: |
           mFiles=`find app -name "hp*.py"`
