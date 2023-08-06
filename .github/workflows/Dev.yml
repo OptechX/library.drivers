@@ -110,22 +110,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python 3.10.9
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.10.9
-      - name: Upgrade Pip
-        run: python -m pip install --upgrade pip
-      - name: Install dependencies
-        run: if [ -f app/lib/microsoft/requirements.txt ]; then pip install -r app/lib/microsoft/requirements.txt; fi
-      - name: Generate Microsoft CSV Data
+      - name: Download Microsoft XML file
         run: |
-          mFiles=`find app -name "surface*.py"`
-          for f in ${mFiles[@]}
-          do
-            python3 "$f"
-          done
-        shell: bash
+          # Create the folder for output
+          New-Item -ItemType Directory -Path "./app/data/Microsoft" -Force -Confirm:$false
+
+          # URL of the XML file
+          $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
+
+          # Destination path to save the downloaded XML file
+          $destinationPath = "path/to/save/MSProducts.xml"
+
+          # Invoke web request to download the file
+          Invoke-WebRequest -Uri $url -OutFile $destinationPath
+
+          # Check if the file was downloaded successfully
+          if (-not(Test-Path $destinationPath)) {
+              Write-Host "Failed to download the file."
+          }
       - name: Archive Microsoft CSV output
         uses: actions/upload-artifact@v3
         with:
