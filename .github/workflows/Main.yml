@@ -1,5 +1,5 @@
----
 name: Main Task
+
 on:
   schedule:
     - cron: 14 11 * * 1,4
@@ -9,6 +9,7 @@ on:
   workflow_dispatch: null
 env:
   API_BASE_URI: https://engine.api.prod.optechx-data.com
+
 jobs:
   dell:
     runs-on: ubuntu-latest
@@ -21,7 +22,6 @@ jobs:
       - name: Install dependencies
         run: >
           python -m pip install --upgrade pip
-
           if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate Dell CSV Data
         run: |
@@ -52,6 +52,7 @@ jobs:
           . ./app/lib/load-functions.ps1
           . ./app/ingress-scripts/ingress-dell-xps.ps1
         shell: pwsh
+
   hp:
     needs:
       - dell
@@ -65,7 +66,6 @@ jobs:
       - name: Install dependencies
         run: >
           python -m pip install --upgrade pip
-
           if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate HP CSV Data
         run: |
@@ -86,6 +86,7 @@ jobs:
           . ./app/lib/load-functions.ps1
           . ./app/ingress-scripts/ingress-hp-all.ps1
         shell: pwsh
+        
   lenovo:
     needs:
       - hp
@@ -99,7 +100,6 @@ jobs:
       - name: Install dependencies
         run: >
           python -m pip install --upgrade pip
-
           if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate Lenovo CSV Data
         run: |
@@ -148,7 +148,6 @@ jobs:
       - name: Install dependencies
         run: >
           python -m pip install --upgrade pip
-
           if [ -f app/lib/microsoft/requirements.txt ]; then pip install -r app/lib/microsoft/requirements.txt; fi
       - name: Generate Microsoft CSV Data
         run: |
