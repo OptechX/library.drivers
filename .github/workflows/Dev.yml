@@ -111,9 +111,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download Microsoft XML file
+        shell: pwsh
         run: |
           # Create the folder for output
-          mkdir -p ./app/data/Microsoft
+          New-Item -ItemType Directory -Path "./app/data/Microsoft" -Force -Confirm:$false
 
           # URL of the XML file
           $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
