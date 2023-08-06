@@ -113,7 +113,7 @@ jobs:
       - name: Download Microsoft XML file
         run: |
           # Create the folder for output
-          New-Item -ItemType Directory -Path "./app/data/Microsoft" -Force -Confirm:$false
+          mkdir -p ./app/data/Microsoft
 
           # URL of the XML file
           $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
