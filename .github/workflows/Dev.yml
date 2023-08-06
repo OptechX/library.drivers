@@ -129,3 +129,24 @@ jobs:
           path: app/data/Microsoft
           retention-days: 1
 
+  auto-pr:
+    needs:
+      - microsoft
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Create pull request
+        run: gh pr create -B main -H dev --title 'Auto PR dev into main' --body 'Automatically created by gh-actions.'
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  auto-merge:
+    needs: [ "auto-pr" ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: merge pull request
+        run: gh pr merge --merge
+        env:
+          GH_TOKEN: ${{ github.token }}
