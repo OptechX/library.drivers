@@ -167,8 +167,8 @@ jobs:
           name: Microsoft_XML
           path: app/data/Microsoft
           retention-days: 1
-      # - name: Inject Microsoft
-      #   run: |
-      #     . ./app/lib/load-functions.ps1
-      #     . ./app/ingress-scripts/ingress-microsoft-all.ps1
-      #   shell: pwsh
+      - name: Inject Microsoft
+        run: |
+          . ./app/lib/load-functions.ps1
+          . ./app/ingress-scripts/ingress-microsoft-all.ps1
+        shell: pwsh

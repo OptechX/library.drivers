@@ -40,8 +40,6 @@ jobs:
           retention-days: 1
 
   hp:
-    needs:
-      - dell
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -69,8 +67,6 @@ jobs:
           retention-days: 1
         
   lenovo:
-    needs:
-      - hp
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -98,8 +94,6 @@ jobs:
           retention-days: 1
       
   microsoft:
-    needs:
-      - lenovo
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -131,6 +125,9 @@ jobs:
 
   auto-pr:
     needs:
+      - dell
+      - hp
+      - lenovo
       - microsoft
     runs-on: ubuntu-latest
     steps:
@@ -142,7 +139,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
   auto-merge:
-    needs: [ "auto-pr" ]
+    needs:
+      - auto-pr
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
