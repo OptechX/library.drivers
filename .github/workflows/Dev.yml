@@ -1,6 +1,9 @@
 name: DEV Task
 
 on:
+  push:
+    branches:
+      - dev
   pull_request:
     branches:
       - dev
@@ -17,10 +20,10 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.10.9
+      - name: Upgrade Pip
+        run: python -m pip install --upgrade pip
       - name: Install dependencies
-        run: >
-          python -m pip install --upgrade pip
-          if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
+        run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate Dell CSV Data
         run: |
           mFiles=`find app -name "dell*.py"`
@@ -34,26 +37,9 @@ jobs:
         with:
           name: Dell_CSV
           path: app/data/Dell
-          retention-days: 3
-      - name: Inject Dell Latitude
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-dell-latitude.ps1
-        shell: pwsh
-      - name: Inject Dell OptiPlex
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-dell-optiplex.ps1
-        shell: pwsh
-      - name: Inject Dell XPS
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-dell-xps.ps1
-        shell: pwsh
+          retention-days: 1
 
   hp:
-    needs:
-      - dell
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -61,10 +47,10 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.10.9
+      - name: Upgrade Pip
+        run: python -m pip install --upgrade pip
       - name: Install dependencies
-        run: >
-          python -m pip install --upgrade pip
-          if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
+        run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate HP CSV Data
         run: |
           mFiles=`find app -name "hp*.py"`
@@ -78,16 +64,9 @@ jobs:
         with:
           name: HP_CSV
           path: app/data/HP
-          retention-days: 3
-      - name: Inject HP
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-hp-all.ps1
-        shell: pwsh
+          retention-days: 1
         
   lenovo:
-    needs:
-      - hp
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -95,10 +74,10 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.10.9
+      - name: Upgrade Pip
+        run: python -m pip install --upgrade pip
       - name: Install dependencies
-        run: >
-          python -m pip install --upgrade pip
-          if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
+        run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate Lenovo CSV Data
         run: |
           mFiles=`find app -name "lenovo*.py"`
@@ -112,57 +91,60 @@ jobs:
         with:
           name: Lenovo_CSV
           path: app/data/Lenovo
-          retention-days: 3
-      - name: Inject Lenovo Laptop
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-lenovo-lenovolaptop.ps1
-        shell: pwsh
-      - name: Inject Lenovo ThinkCentre
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-lenovo-thinkcentre.ps1
-        shell: pwsh
-      - name: Inject Lenovo ThinkPad
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-lenovo-thinkpad.ps1
-        shell: pwsh
-      - name: Inject Lenovo ThinkStation
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-lenovo-thinkstation.ps1
-        shell: pwsh
+          retention-days: 1
+      
   microsoft:
-    needs:
-      - lenovo
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python 3.10.9
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.10.9
-      - name: Install dependencies
-        run: >
-          python -m pip install --upgrade pip
-          if [ -f app/lib/microsoft/requirements.txt ]; then pip install -r app/lib/microsoft/requirements.txt; fi
-      - name: Generate Microsoft CSV Data
+      - name: Download Microsoft XML file
+        shell: pwsh
         run: |
-          mFiles=`find app -name "surface*.py"`
-          for f in ${mFiles[@]}
-          do
-            python3 "$f"
-          done
-        shell: bash
-      - name: Archive Microsoft CSV output
+          # Create the folder for output
+          New-Item -ItemType Directory -Path "./app/data/Microsoft" -Force -Confirm:$false
+
+          # URL of the XML file
+          $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
+
+          # Destination path to save the downloaded XML file
+          $destinationPath = "app/data/Microsoft/MSProducts.xml"
+
+          # Invoke web request to download the file
+          Invoke-WebRequest -Uri $url -OutFile $destinationPath
+
+          # Check if the file was downloaded successfully
+          if (-not(Test-Path $destinationPath)) {
+              Write-Host "Failed to download the file."
+          }
+      - name: Archive Microsoft XML output
         uses: actions/upload-artifact@v3
         with:
-          name: Microsoft_CSV
+          name: Microsoft_XML
           path: app/data/Microsoft
-          retention-days: 3
-      - name: Inject Microsoft
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-microsoft-all.ps1
-        shell: pwsh
+          retention-days: 1
+
+  auto-pr:
+    needs:
+      - dell
+      - hp
+      - lenovo
+      - microsoft
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Create pull request
+        run: gh pr create -B main -H dev --title 'Auto PR dev into main' --body 'Automatically created by gh-actions.'
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  auto-merge:
+    needs:
+      - auto-pr
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: merge pull request
+        run: gh pr merge --merge
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,4 +1,4 @@
-name: Main Task
+name: MAIN Task
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
       - main
   workflow_dispatch: null
 env:
-  API_BASE_URI: https://engine.api.prod.optechx-data.com
+  API_BASE_URI: https://definitely-firm-chamois.ngrok-free.app/
 
 jobs:
   dell:
@@ -19,10 +19,10 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.10.9
+      - name: Upgrade Pip
+        run: python -m pip install --upgrade pip
       - name: Install dependencies
-        run: >
-          python -m pip install --upgrade pip
-          if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
+        run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate Dell CSV Data
         run: |
           mFiles=`find app -name "dell*.py"`
@@ -36,7 +36,7 @@ jobs:
         with:
           name: Dell_CSV
           path: app/data/Dell
-          retention-days: 3
+          retention-days: 1
       - name: Inject Dell Latitude
         run: |
           . ./app/lib/load-functions.ps1
@@ -63,10 +63,10 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.10.9
+      - name: Upgrade Pip
+        run: python -m pip install --upgrade pip
       - name: Install dependencies
-        run: >
-          python -m pip install --upgrade pip
-          if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
+        run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate HP CSV Data
         run: |
           mFiles=`find app -name "hp*.py"`
@@ -80,7 +80,7 @@ jobs:
         with:
           name: HP_CSV
           path: app/data/HP
-          retention-days: 3
+          retention-days: 1
       - name: Inject HP
         run: |
           . ./app/lib/load-functions.ps1
@@ -97,10 +97,10 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.10.9
+      - name: Upgrade Pip
+        run: python -m pip install --upgrade pip
       - name: Install dependencies
-        run: >
-          python -m pip install --upgrade pip
-          if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
+        run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
       - name: Generate Lenovo CSV Data
         run: |
           mFiles=`find app -name "lenovo*.py"`
@@ -114,7 +114,7 @@ jobs:
         with:
           name: Lenovo_CSV
           path: app/data/Lenovo
-          retention-days: 3
+          retention-days: 1
       - name: Inject Lenovo Laptop
         run: |
           . ./app/lib/load-functions.ps1
@@ -135,34 +135,38 @@ jobs:
           . ./app/lib/load-functions.ps1
           . ./app/ingress-scripts/ingress-lenovo-thinkstation.ps1
         shell: pwsh
+
   microsoft:
     needs:
       - lenovo
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python 3.10.9
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.10.9
-      - name: Install dependencies
-        run: >
-          python -m pip install --upgrade pip
-          if [ -f app/lib/microsoft/requirements.txt ]; then pip install -r app/lib/microsoft/requirements.txt; fi
-      - name: Generate Microsoft CSV Data
+      - name: Download Microsoft XML file
+        shell: pwsh
         run: |
-          mFiles=`find app -name "surface*.py"`
-          for f in ${mFiles[@]}
-          do
-            python3 "$f"
-          done
-        shell: bash
-      - name: Archive Microsoft CSV output
+          # Create the folder for output
+          New-Item -ItemType Directory -Path "./app/data/Microsoft" -Force -Confirm:$false
+
+          # URL of the XML file
+          $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
+
+          # Destination path to save the downloaded XML file
+          $destinationPath = "app/data/Microsoft/MSProducts.xml"
+
+          # Invoke web request to download the file
+          Invoke-WebRequest -Uri $url -OutFile $destinationPath
+
+          # Check if the file was downloaded successfully
+          if (-not(Test-Path $destinationPath)) {
+              Write-Host "Failed to download the file."
+          }
+      - name: Archive Microsoft XML output
         uses: actions/upload-artifact@v3
         with:
-          name: Microsoft_CSV
+          name: Microsoft_XML
           path: app/data/Microsoft
-          retention-days: 3
+          retention-days: 1
       - name: Inject Microsoft
         run: |
           . ./app/lib/load-functions.ps1
