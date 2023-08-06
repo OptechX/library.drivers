@@ -119,7 +119,7 @@ jobs:
           $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
 
           # Destination path to save the downloaded XML file
-          $destinationPath = "path/to/save/MSProducts.xml"
+          $destinationPath = "app/data/Microsoft/MSProducts.xml"
 
           # Invoke web request to download the file
           Invoke-WebRequest -Uri $url -OutFile $destinationPath
@@ -128,10 +128,10 @@ jobs:
           if (-not(Test-Path $destinationPath)) {
               Write-Host "Failed to download the file."
           }
-      - name: Archive Microsoft CSV output
+      - name: Archive Microsoft XML output
         uses: actions/upload-artifact@v3
         with:
-          name: Microsoft_CSV
+          name: Microsoft_XML
           path: app/data/Microsoft
           retention-days: 1
 
