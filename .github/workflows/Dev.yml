@@ -24,12 +24,12 @@ jobs:
         run: git clone https://github.com/OptechX/OpetchX.Library.Drivers.UpdateTool.git
         shell: bash
       - name: Build
-        run: |
-          cd OptechX.Library.Drivers.UpdateTool
-          dotnet restore
-          dotnet build --no-restore
-          dotnet publish -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
-          find . -name "oxldut"
+        run: sudo apt -y install tree; tree
+          # cd OptechX.Library.Drivers.UpdateTool
+          # dotnet restore
+          # dotnet build --no-restore
+          # dotnet publish -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
+          # find . -name "oxldut"
 
   dell:
     runs-on: ubuntu-latest
