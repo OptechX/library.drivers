@@ -78,7 +78,7 @@ jobs:
           retention-days: 1
       - name: Inject HP
         run: |
-          Get-ChildItem -Path ./app/data/Dell -File | Where-Object -FilterScript { $_.Name -like "hp-all.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem HP }
+          Get-ChildItem -Path ./app/data/HP -File | Where-Object -FilterScript { $_.Name -like "hp-all.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem HP }
         shell: pwsh
         
   # lenovo:
