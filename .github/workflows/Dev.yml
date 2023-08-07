@@ -28,7 +28,9 @@ jobs:
       - name: Publish
         run: dotnet publish ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool.sln -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
       - name: Find
-        run: find . -name "oxldut"
+        run: |
+          mkdir -p ./bin
+          cp ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/bin/Release/net7.0/linux-x64/publish/oxldut ./bin/oxldut
 
   dell:
     runs-on: ubuntu-latest
