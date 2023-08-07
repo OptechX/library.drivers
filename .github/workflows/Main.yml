@@ -76,9 +76,16 @@ jobs:
           name: HP_CSV
           path: app/data/HP
           retention-days: 1
-      - name: Inject HP
+      - name: Update HP CSV Files
+        run: ./app/lib/hp-create-csv.ps1
+        shell: pwsh
+      - name: Inject HP Win10
         run: |
-          Get-ChildItem -Path ./app/data/HP -File | Where-Object -FilterScript { $_.Name -like "hp-all.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem HP }
+          Get-ChildItem -Path ./app/data/HP -File | Where-Object -FilterScript { $_.Name -like "*win10*.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem Dell }
+        shell: pwsh
+      - name: Inject HP Win11
+        run: |
+          Get-ChildItem -Path ./app/data/HP -File | Where-Object -FilterScript { $_.Name -like "*win11*.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem Dell }
         shell: pwsh
         
   # lenovo:
