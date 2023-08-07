@@ -160,6 +160,13 @@ jobs:
             python3 "$f"
           done
         shell: bash
+      - name: Update Lenovo CSV Files
+        run: |
+          ./app/lib/lenovo-laptop-create-csv.ps1
+          ./app/lib/lenovo-thinkcentre-create-csv.ps1
+          ./app/lib/lenovo-thinkpad-create-csv.ps1
+          ./app/lib/lenovo-thinkstation-create-csv.ps1
+        shell: pwsh
       - name: Archive Lenovo CSV output
         uses: actions/upload-artifact@v3
         with:
