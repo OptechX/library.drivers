@@ -113,6 +113,9 @@ jobs:
             python3 "$f"
           done
         shell: bash
+      - name: Update HP CSV Files
+        run: ./app/lib/hp-create-csv.ps1
+        shell: pwsh
       - name: Archive HP CSV output
         uses: actions/upload-artifact@v3
         with:
