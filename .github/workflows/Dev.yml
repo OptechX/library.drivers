@@ -8,8 +8,6 @@ on:
     branches:
       - dev
   workflow_dispatch:
-env:
-  API_BASE_URI: https://engine.api.prod.optechx-data.com
 
 jobs:
   oxldut:
@@ -20,7 +18,7 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
-      - name: Clone OXLDUT
+      - name: Clone https://github.com/OptechX/OpetchX.Library.Drivers.UpdateTool.git
         run: git clone https://github.com/OptechX/OpetchX.Library.Drivers.UpdateTool.git
         shell: bash
       - name: Restore
@@ -28,9 +26,11 @@ jobs:
       - name: Build
         run: dotnet build ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj --no-restore
       - name: Publish
-        run: dotnet publish ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool.csproj -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
+        run: dotnet publish ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool.sln -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
       - name: Find
-        run: find . -name "oxldut"
+        run: |
+          mkdir -p ./bin
+          cp ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/bin/Release/net7.0/linux-x64/publish/oxldut ./bin/oxldut
 
   dell:
     runs-on: ubuntu-latest
