@@ -23,12 +23,14 @@ jobs:
       - name: Clone OXLDUT
         run: git clone https://github.com/OptechX/OpetchX.Library.Drivers.UpdateTool.git
         shell: bash
+      - name: Restore
+        run: dotnet restore ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj
       - name: Build
-        run: |
-          dotnet restore ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj
-          dotnet build ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj --no-restore
-          dotnet publish ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool.csproj -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
-          find . -name "oxldut"
+        run: dotnet build ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj --no-restore
+      - name: Publish
+        run: dotnet publish ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool.csproj -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
+      - name: Find
+        run: find . -name "oxldut"
 
   dell:
     runs-on: ubuntu-latest
