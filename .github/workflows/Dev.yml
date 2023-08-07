@@ -25,12 +25,10 @@ jobs:
         shell: bash
       - name: Build
         run: |
-          dotnet build ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj
-# cd OptechX.Library.Drivers.UpdateTool
-# dotnet restore
-# dotnet build --no-restore
-# dotnet publish -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
-# find . -name "oxldut"
+          dotnet restore ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj
+          dotnet build ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj --no-restore
+          dotnet publish ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool.csproj -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
+          find . -name "oxldut"
 
   dell:
     runs-on: ubuntu-latest
