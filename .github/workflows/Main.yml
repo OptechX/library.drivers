@@ -163,39 +163,37 @@ jobs:
           Get-ChildItem -Path ./app/data/Lenovo -File | Where-Object -FilterScript { $_.Name -like "*win11*.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem Lenovo }
         shell: pwsh
 
-  # microsoft:
-  #   needs:
-  #     - lenovo
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Download Microsoft XML file
-  #       shell: pwsh
-  #       run: |
-  #         # Create the folder for output
-  #         New-Item -ItemType Directory -Path "./app/data/Microsoft" -Force -Confirm:$false
+  microsoft:
+    needs:
+      - lenovo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download Microsoft XML file
+        shell: pwsh
+        run: |
+          # Create the folder for output
+          New-Item -ItemType Directory -Path "./app/data/Microsoft" -Force -Confirm:$false
 
-  #         # URL of the XML file
-  #         $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
+          # URL of the XML file
+          $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
 
-  #         # Destination path to save the downloaded XML file
-  #         $destinationPath = "app/data/Microsoft/MSProducts.xml"
+          # Destination path to save the downloaded XML file
+          $destinationPath = "app/data/Microsoft/MSProducts.xml"
 
-  #         # Invoke web request to download the file
-  #         Invoke-WebRequest -Uri $url -OutFile $destinationPath
+          # Invoke web request to download the file
+          Invoke-WebRequest -Uri $url -OutFile $destinationPath
 
-  #         # Check if the file was downloaded successfully
-  #         if (-not(Test-Path $destinationPath)) {
-  #             Write-Host "Failed to download the file."
-  #         }
-  #     - name: Archive Microsoft XML output
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: Microsoft_XML
-  #         path: app/data/Microsoft
-  #         retention-days: 1
-  #     - name: Inject Microsoft
-  #       run: |
-  #         . ./app/lib/load-functions.ps1
-  #         . ./app/ingress-scripts/ingress-microsoft-all.ps1
-  #       shell: pwsh
+          # Check if the file was downloaded successfully
+          if (-not(Test-Path $destinationPath)) {
+              Write-Host "Failed to download the file."
+          }
+      - name: Archive Microsoft XML output
+        uses: actions/upload-artifact@v3
+        with:
+          name: Microsoft_XML
+          path: app/data/Microsoft
+          retention-days: 1
+      - name: Inject Microsoft
+        run: Get-ChildItem -Path ./app/data/Microsoft -File | Where-Object -FilterScript { $_.Name -like "MSProducts.xml" } | ForEach-Object { & bin/oxldut --xml $_.FullName --oem Microsoft }
+        shell: pwsh
