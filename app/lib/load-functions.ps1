@@ -11,15 +11,16 @@ class DriversCorePayload {
 function Update-ApiDriversCore {
     [CmdletBinding()]
     param (
-        [DriversCorePayload]$Payload,
-        [System.String]$API_BASE_URI = $Env:API_BASE_URI
+        [DriversCorePayload]$Payload
     )
     
     $UID = $Payload.uid
 
     # find if object exists
     try {
-        $API_RESPONSE = Invoke-WebRequest -Uri "${API_BASE_URI}/api/DriverCore/uid/${UID}" -Method Get -UseBasicParsing -SkipHttpErrorCheck -ErrorAction Stop
+        $inputString = "https://definitely-firm-chamois.ngrok-free.app/api/DriverCore/uid/${UID}"
+        $encodedString = [System.Uri]::EscapeUriString($inputString)
+        $API_RESPONSE = Invoke-WebRequest -Uri $encodedString -Method Get -UseBasicParsing -SkipHttpErrorCheck -ErrorAction Stop
         
         switch ($API_RESPONSE.StatusCode)
         {
