@@ -31,7 +31,6 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
@@ -366,3 +365,9 @@ bs4/Lenovo/ThinkStation/lenovo-thinkstation.csv
 bs4/Lenovo/ThinkStation/page_source.html
 read-csv.ps1
 test-ps.ps1
+app/data/Dell/dell-latitude-win10.csv
+app/data/Dell/dell-latitude-win11.csv
+app/data/Dell/dell-optiplex-win10.csv
+app/data/Dell/dell-optiplex-win11.csv
+app/data/Dell/dell-xps-win10.csv
+app/data/Dell/dell-xps-win11.csv

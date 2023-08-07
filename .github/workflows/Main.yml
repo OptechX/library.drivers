@@ -7,8 +7,6 @@ on:
     branches:
       - main
   workflow_dispatch: null
-env:
-  API_BASE_URI: https://definitely-firm-chamois.ngrok-free.app/
 
 jobs:
   dell:
@@ -39,136 +37,135 @@ jobs:
           retention-days: 1
       - name: Inject Dell Latitude
         run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-dell-latitude.ps1
+          Get-ChildItem -Path ./app/data/Dell -File | Where-Object -FilterScript { $_.Name -like "*latitude*.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem Dell }
         shell: pwsh
-      - name: Inject Dell OptiPlex
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-dell-optiplex.ps1
-        shell: pwsh
-      - name: Inject Dell XPS
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-dell-xps.ps1
-        shell: pwsh
+  #     - name: Inject Dell OptiPlex
+  #       run: |
+  #         . ./app/lib/load-functions.ps1
+  #         . ./app/ingress-scripts/ingress-dell-optiplex.ps1
+  #       shell: pwsh
+  #     - name: Inject Dell XPS
+  #       run: |
+  #         . ./app/lib/load-functions.ps1
+  #         . ./app/ingress-scripts/ingress-dell-xps.ps1
+  #       shell: pwsh
 
-  hp:
-    needs:
-      - dell
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.10.9
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.10.9
-      - name: Upgrade Pip
-        run: python -m pip install --upgrade pip
-      - name: Install dependencies
-        run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
-      - name: Generate HP CSV Data
-        run: |
-          mFiles=`find app -name "hp*.py"`
-          for f in ${mFiles[@]}
-          do
-            python3 "$f"
-          done
-        shell: bash
-      - name: Archive HP CSV output
-        uses: actions/upload-artifact@v3
-        with:
-          name: HP_CSV
-          path: app/data/HP
-          retention-days: 1
-      - name: Inject HP
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-hp-all.ps1
-        shell: pwsh
+  # hp:
+  #   needs:
+  #     - dell
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Set up Python 3.10.9
+  #       uses: actions/setup-python@v3
+  #       with:
+  #         python-version: 3.10.9
+  #     - name: Upgrade Pip
+  #       run: python -m pip install --upgrade pip
+  #     - name: Install dependencies
+  #       run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
+  #     - name: Generate HP CSV Data
+  #       run: |
+  #         mFiles=`find app -name "hp*.py"`
+  #         for f in ${mFiles[@]}
+  #         do
+  #           python3 "$f"
+  #         done
+  #       shell: bash
+  #     - name: Archive HP CSV output
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: HP_CSV
+  #         path: app/data/HP
+  #         retention-days: 1
+  #     - name: Inject HP
+  #       run: |
+  #         . ./app/lib/load-functions.ps1
+  #         . ./app/ingress-scripts/ingress-hp-all.ps1
+  #       shell: pwsh
         
-  lenovo:
-    needs:
-      - hp
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.10.9
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.10.9
-      - name: Upgrade Pip
-        run: python -m pip install --upgrade pip
-      - name: Install dependencies
-        run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
-      - name: Generate Lenovo CSV Data
-        run: |
-          mFiles=`find app -name "lenovo*.py"`
-          for f in ${mFiles[@]}
-          do
-            python3 "$f"
-          done
-        shell: bash
-      - name: Archive Lenovo CSV output
-        uses: actions/upload-artifact@v3
-        with:
-          name: Lenovo_CSV
-          path: app/data/Lenovo
-          retention-days: 1
-      - name: Inject Lenovo Laptop
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-lenovo-lenovolaptop.ps1
-        shell: pwsh
-      - name: Inject Lenovo ThinkCentre
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-lenovo-thinkcentre.ps1
-        shell: pwsh
-      - name: Inject Lenovo ThinkPad
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-lenovo-thinkpad.ps1
-        shell: pwsh
-      - name: Inject Lenovo ThinkStation
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-lenovo-thinkstation.ps1
-        shell: pwsh
+  # lenovo:
+  #   needs:
+  #     - hp
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Set up Python 3.10.9
+  #       uses: actions/setup-python@v3
+  #       with:
+  #         python-version: 3.10.9
+  #     - name: Upgrade Pip
+  #       run: python -m pip install --upgrade pip
+  #     - name: Install dependencies
+  #       run: if [ -f app/lib/requirements.txt ]; then pip install -r app/lib/requirements.txt; fi
+  #     - name: Generate Lenovo CSV Data
+  #       run: |
+  #         mFiles=`find app -name "lenovo*.py"`
+  #         for f in ${mFiles[@]}
+  #         do
+  #           python3 "$f"
+  #         done
+  #       shell: bash
+  #     - name: Archive Lenovo CSV output
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: Lenovo_CSV
+  #         path: app/data/Lenovo
+  #         retention-days: 1
+  #     - name: Inject Lenovo Laptop
+  #       run: |
+  #         . ./app/lib/load-functions.ps1
+  #         . ./app/ingress-scripts/ingress-lenovo-lenovolaptop.ps1
+  #       shell: pwsh
+  #     - name: Inject Lenovo ThinkCentre
+  #       run: |
+  #         . ./app/lib/load-functions.ps1
+  #         . ./app/ingress-scripts/ingress-lenovo-thinkcentre.ps1
+  #       shell: pwsh
+  #     - name: Inject Lenovo ThinkPad
+  #       run: |
+  #         . ./app/lib/load-functions.ps1
+  #         . ./app/ingress-scripts/ingress-lenovo-thinkpad.ps1
+  #       shell: pwsh
+  #     - name: Inject Lenovo ThinkStation
+  #       run: |
+  #         . ./app/lib/load-functions.ps1
+  #         . ./app/ingress-scripts/ingress-lenovo-thinkstation.ps1
+  #       shell: pwsh
 
-  microsoft:
-    needs:
-      - lenovo
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Download Microsoft XML file
-        shell: pwsh
-        run: |
-          # Create the folder for output
-          New-Item -ItemType Directory -Path "./app/data/Microsoft" -Force -Confirm:$false
+  # microsoft:
+  #   needs:
+  #     - lenovo
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Download Microsoft XML file
+  #       shell: pwsh
+  #       run: |
+  #         # Create the folder for output
+  #         New-Item -ItemType Directory -Path "./app/data/Microsoft" -Force -Confirm:$false
 
-          # URL of the XML file
-          $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
+  #         # URL of the XML file
+  #         $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
 
-          # Destination path to save the downloaded XML file
-          $destinationPath = "app/data/Microsoft/MSProducts.xml"
+  #         # Destination path to save the downloaded XML file
+  #         $destinationPath = "app/data/Microsoft/MSProducts.xml"
 
-          # Invoke web request to download the file
-          Invoke-WebRequest -Uri $url -OutFile $destinationPath
+  #         # Invoke web request to download the file
+  #         Invoke-WebRequest -Uri $url -OutFile $destinationPath
 
-          # Check if the file was downloaded successfully
-          if (-not(Test-Path $destinationPath)) {
-              Write-Host "Failed to download the file."
-          }
-      - name: Archive Microsoft XML output
-        uses: actions/upload-artifact@v3
-        with:
-          name: Microsoft_XML
-          path: app/data/Microsoft
-          retention-days: 1
-      - name: Inject Microsoft
-        run: |
-          . ./app/lib/load-functions.ps1
-          . ./app/ingress-scripts/ingress-microsoft-all.ps1
-        shell: pwsh
+  #         # Check if the file was downloaded successfully
+  #         if (-not(Test-Path $destinationPath)) {
+  #             Write-Host "Failed to download the file."
+  #         }
+  #     - name: Archive Microsoft XML output
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: Microsoft_XML
+  #         path: app/data/Microsoft
+  #         retention-days: 1
+  #     - name: Inject Microsoft
+  #       run: |
+  #         . ./app/lib/load-functions.ps1
+  #         . ./app/ingress-scripts/ingress-microsoft-all.ps1
+  #       shell: pwsh
