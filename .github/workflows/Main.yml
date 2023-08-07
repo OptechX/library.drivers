@@ -13,6 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Clone https://github.com/OptechX/OpetchX.Library.Drivers.UpdateTool.git
+        run: git clone https://github.com/OptechX/OpetchX.Library.Drivers.UpdateTool.git
+        shell: bash
+      - name: Restore
+        run: dotnet restore ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj
+      - name: Build
+        run: dotnet build ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj --no-restore
+      - name: Publish
+        run: dotnet publish ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool.sln -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
+      - name: Copy oxldut to ./bin
+        run: |
+          mkdir -p ./bin
+          cp ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/bin/Release/net7.0/linux-x64/publish/oxldut ./bin/oxldut
       - name: Set up Python 3.10.9
         uses: actions/setup-python@v3
         with:
@@ -54,6 +71,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Clone https://github.com/OptechX/OpetchX.Library.Drivers.UpdateTool.git
+        run: git clone https://github.com/OptechX/OpetchX.Library.Drivers.UpdateTool.git
+        shell: bash
+      - name: Restore
+        run: dotnet restore ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj
+      - name: Build
+        run: dotnet build ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/oxldut.csproj --no-restore
+      - name: Publish
+        run: dotnet publish ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool.sln -r linux-x64 -c Release /p:PublishSingleFile=true --self-contained
+      - name: Copy oxldut to ./bin
+        run: |
+          mkdir -p ./bin
+          cp ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/bin/Release/net7.0/linux-x64/publish/oxldut ./bin/oxldut
       - name: Set up Python 3.10.9
         uses: actions/setup-python@v3
         with:
