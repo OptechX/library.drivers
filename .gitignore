@@ -372,3 +372,9 @@ app/data/Dell/dell-optiplex-win11.csv
 app/data/Dell/dell-xps-win10.csv
 app/data/Dell/dell-xps-win11.csv
 app/data/HP/hp-all.csv
+app/data/HP/hp-win10.csv
+app/data/HP/hp-win11.csv
+app/data/Lenovo/lenovo-lenovolaptop.csv
+app/data/Lenovo/lenovo-thinkcentre.csv
+app/data/Lenovo/lenovo-thinkpad.csv
+app/data/Lenovo/lenovo-thinkstation.csv
