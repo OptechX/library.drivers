@@ -172,9 +172,6 @@ jobs:
       - name: Download Microsoft XML file
         shell: pwsh
         run: |
-          # Create the folder for output
-          New-Item -ItemType Directory -Path "./app/data/Microsoft" -Force -Confirm:$false
-
           # URL of the XML file
           $url = "https://raw.githubusercontent.com/maurice-daly/DriverAutomationTool/master/Data/MSProducts.xml"
 
