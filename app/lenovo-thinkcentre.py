@@ -40,10 +40,15 @@ with open(output_csv, 'a') as f:
     f.write(csv_header)
     f.write('\n')
 
-options = webdriver.ChromeOptions() 
+# Specify the path to the Chrome binary here
+chrome_binary_path = '/usr/bin/google-chrome'  # Replace with the actual path
+
+options = webdriver.ChromeOptions()
+options.binary_location = chrome_binary_path
 options.add_argument('--headless')
+
+# Create the Chrome WebDriver instance
 driver = webdriver.Chrome(options=options)
-# driver.maximize_window()
 
 driver.get("https://support.lenovo.com/au/en/solutions/ht074984")
 pageSource = driver.page_source

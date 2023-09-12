@@ -39,8 +39,14 @@ with open(output_csv, 'a') as f:
     f.write(csv_header)
     f.write('\n')
 
-options = webdriver.ChromeOptions() 
+# Specify the path to the Chrome binary here
+chrome_binary_path = '/usr/bin/google-chrome'  # Replace with the actual path
+
+options = webdriver.ChromeOptions()
+options.binary_location = chrome_binary_path
 options.add_argument('--headless')
+
+# Create the Chrome WebDriver instance
 driver = webdriver.Chrome(options=options)
 
 driver.get("https://hpia.hpcloud.hp.com/downloads/driverpackcatalog/HP_Driverpack_Matrix_x64.html")
