@@ -1,4 +1,6 @@
 $srcFile = "./app/data/Lenovo/lenovo-lenovolaptop.csv"
+(Get-Content -Path $srcFile) -replace "Sub-series,No,No,Yes,Yes,", "Model,Win7,Win8.1,Win10,Win11," | Set-Content -Path $srcFile
+
 $data = Import-Csv -Path $srcFile
 
 $win10Results = @()
