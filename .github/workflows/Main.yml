@@ -70,6 +70,12 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
+      - name: Install GOogle Chrome
+        run: |
+          # Install Google Chrome
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          sudo apt-get install -f
       - name: Clone https://github.com/OptechX/OpetchX.Library.Drivers.UpdateTool.git
         run: git clone https://github.com/OptechX/OpetchX.Library.Drivers.UpdateTool.git
         shell: bash

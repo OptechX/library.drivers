@@ -97,6 +97,12 @@ jobs:
         run: |
           mkdir -p ./bin
           cp ./OpetchX.Library.Drivers.UpdateTool/OptechX.Library.Drivers.UpdateTool/bin/Release/net7.0/linux-x64/publish/oxldut ./bin/oxldut
+      - name: Install GOogle Chrome
+        run: |
+          # Install Google Chrome
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          sudo apt-get install -f
       - name: Set up Python 3.10.9
         uses: actions/setup-python@v3
         with:
