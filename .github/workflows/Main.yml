@@ -116,11 +116,11 @@ jobs:
         shell: pwsh
       - name: Inject HP Win10
         run: |
-          Get-ChildItem -Path ./app/data/HP -File | Where-Object -FilterScript { $_.Name -like "*win10*.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem Dell }
+          Get-ChildItem -Path ./app/data/HP -File | Where-Object -FilterScript { $_.Name -like "*win10*.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem HP }
         shell: pwsh
       - name: Inject HP Win11
         run: |
-          Get-ChildItem -Path ./app/data/HP -File | Where-Object -FilterScript { $_.Name -like "*win11*.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem Dell }
+          Get-ChildItem -Path ./app/data/HP -File | Where-Object -FilterScript { $_.Name -like "*win11*.csv" } | ForEach-Object { & bin/oxldut --csv $_.FullName --oem HP }
         shell: pwsh
         
   lenovo:
